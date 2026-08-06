@@ -33,6 +33,7 @@ class _TicketScreenState extends State<TicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SnaptixAppBarWidget(
+        title: 'Ticket',
         actions: [
           AppBarAction(icon: Icons.search_rounded, onTap: () {}),
           NotificationActionIcon(onTap: () {}, showBadge: false),

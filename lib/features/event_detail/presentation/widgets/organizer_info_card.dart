@@ -158,6 +158,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/theme/app_theme.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
 
 import '../../../../core/constants/app_colors.dart';
@@ -211,7 +212,7 @@ class OrganizerInfoCard extends StatelessWidget {
             ],
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.r),
@@ -278,29 +279,31 @@ class OrganizerInfoCard extends StatelessWidget {
 
               SizedBox(width: 12.w),
 
-              SizedBox(
-                height: 40.h,
-                child: ElevatedButton(
-                  onPressed: onFollowTap,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(90.w, 40.h),
-                    elevation: 0,
-                    backgroundColor: isFollowing
-                        ? AppColors.border
+              ElevatedButton(
+                onPressed: onFollowTap,
+                style: AppTheme.lightTheme.elevatedButtonTheme.style?.copyWith(
+                  padding: WidgetStatePropertyAll(
+                    EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                  ),
+                  minimumSize: WidgetStatePropertyAll(Size(0, 40.h)),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  backgroundColor: WidgetStatePropertyAll(
+                    isFollowing
+                        ? AppColors.textHint.withValues(alpha: 0.9)
                         : AppColors.primary,
-                    shape: RoundedRectangleBorder(
+                  ),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.r),
                     ),
                   ),
-                  child: Text(
-                    isFollowing ? "Following" : "Follow",
-                    style: TextStyle(
-                      color: isFollowing
-                          ? AppColors.textDark.withValues(alpha: 0.8)
-                          : AppColors.surface,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                child: Text(
+                  isFollowing ? "Following" : "Follow",
+                  style: AppTextStyles.caption.copyWith(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.surface,
                   ),
                 ),
               ),

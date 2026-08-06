@@ -13,7 +13,7 @@ class ExploreSearchBar extends StatelessWidget {
       constraints: BoxConstraints(minHeight: 52.h),
       child: TextField(
         textInputAction: TextInputAction.search,
-        style: AppTextStyles.bodyMedium,
+        style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textPrimary),
         decoration: InputDecoration(
           hintText: AppStrings.exploreSearchHintText,
           hintStyle: AppTextStyles.bodySmall,

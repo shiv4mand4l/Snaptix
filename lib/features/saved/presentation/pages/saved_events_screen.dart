@@ -33,6 +33,7 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
 
     return Scaffold(
       appBar: SnaptixAppBarWidget(
+        title: 'Saved',
         actions: [
           NotificationActionIcon(
             onTap: () {},
