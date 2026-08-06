@@ -4,26 +4,26 @@ A beautifully crafted Flutter application for discovering, saving, and booking e
 
 ### 🧰 Built With
 
-| Tool | Version |
-|---|---|
-| **Flutter** | `3.44.8` (stable channel) |
-| **Dart** | `3.12.2` |
-| **DevTools** | `2.57.0` |
+| Tool         | Version                   |
+| ------------ | ------------------------- |
+| **Flutter**  | `3.44.8` (stable channel) |
+| **Dart**     | `3.12.2`                  |
+| **DevTools** | `2.57.0`                  |
 
 ---
 
 ## 📱 Features
 
-| Feature | Description |
-|---|---|
-| 🔍 **Explore** | Browse and search events with real-time filtering |
-| 🎫 **Tickets** | View and manage your purchased tickets |
-| 💾 **Saved Events** | Bookmark events you're interested in |
-| 📋 **Event Detail** | Rich event detail page with full information |
-| ✅ **Booking Confirmation** | Seamless ticket booking confirmation flow |
-| 👤 **Profile** | User profile management |
-| 🔐 **Authentication** | Sign In / Sign Up flows |
-| 🚀 **Onboarding** | Guided onboarding experience for new users |
+| Feature                     | Description                                       |
+| --------------------------- | ------------------------------------------------- |
+| 🔍 **Explore**              | Browse and search events with real-time filtering |
+| 🎫 **Tickets**              | View and manage your purchased tickets            |
+| 💾 **Saved Events**         | Bookmark events you're interested in              |
+| 📋 **Event Detail**         | Rich event detail page with full information      |
+| ✅ **Booking Confirmation** | Seamless ticket booking confirmation flow         |
+| 👤 **Profile**              | User profile management                           |
+| 🔐 **Authentication**       | Sign In / Sign Up flows                           |
+| 🚀 **Onboarding**           | Guided onboarding experience for new users        |
 
 ---
 
@@ -31,23 +31,23 @@ A beautifully crafted Flutter application for discovering, saving, and booking e
 
 ### Dependencies
 
-| Package | Version | Description |
-|---|---|---|
-| [`flutter_bloc`](https://pub.dev/packages/flutter_bloc) | `^9.1.1` | State management using the BLoC (Business Logic Component) pattern |
-| [`go_router`](https://pub.dev/packages/go_router) | `^17.3.0` | Declarative routing with deep linking and URL-based navigation |
-| [`google_fonts`](https://pub.dev/packages/google_fonts) | `^8.2.1` | Access to Google Fonts (Inter, Space Grotesk) at runtime |
-| [`flutter_screenutil`](https://pub.dev/packages/flutter_screenutil) | `^5.9.3` | Responsive UI scaling across different screen sizes |
-| [`flutter_svg`](https://pub.dev/packages/flutter_svg) | `^2.3.0` | Render SVG vector assets natively in Flutter |
-| [`cached_network_image`](https://pub.dev/packages/cached_network_image) | `^3.4.1` | Download, cache, and display network images with placeholders |
-| [`equatable`](https://pub.dev/packages/equatable) | `^2.1.0` | Simplify value equality for BLoC states and events |
-| [`gap`](https://pub.dev/packages/gap) | `^3.0.1` | Clean spacing widget — a drop-in replacement for `SizedBox` |
-| [`cupertino_icons`](https://pub.dev/packages/cupertino_icons) | `^1.0.8` | iOS-style icons from the Cupertino design system |
+| Package                                                                 | Version   | Description                                                        |
+| ----------------------------------------------------------------------- | --------- | ------------------------------------------------------------------ |
+| [`flutter_bloc`](https://pub.dev/packages/flutter_bloc)                 | `^9.1.1`  | State management using the BLoC (Business Logic Component) pattern |
+| [`go_router`](https://pub.dev/packages/go_router)                       | `^17.3.0` | Declarative routing with deep linking and URL-based navigation     |
+| [`google_fonts`](https://pub.dev/packages/google_fonts)                 | `^8.2.1`  | Access to Google Fonts (Inter, Space Grotesk) at runtime           |
+| [`flutter_screenutil`](https://pub.dev/packages/flutter_screenutil)     | `^5.9.3`  | Responsive UI scaling across different screen sizes                |
+| [`flutter_svg`](https://pub.dev/packages/flutter_svg)                   | `^2.3.0`  | Render SVG vector assets natively in Flutter                       |
+| [`cached_network_image`](https://pub.dev/packages/cached_network_image) | `^3.4.1`  | Download, cache, and display network images with placeholders      |
+| [`equatable`](https://pub.dev/packages/equatable)                       | `^2.1.0`  | Simplify value equality for BLoC states and events                 |
+| [`gap`](https://pub.dev/packages/gap)                                   | `^3.0.1`  | Clean spacing widget — a drop-in replacement for `SizedBox`        |
+| [`cupertino_icons`](https://pub.dev/packages/cupertino_icons)           | `^1.0.8`  | iOS-style icons from the Cupertino design system                   |
 
 ### Dev Dependencies
 
-| Package | Version | Description |
-|---|---|---|
-| [`flutter_lints`](https://pub.dev/packages/flutter_lints) | `^6.0.0` | Recommended linting rules for Flutter projects |
+| Package                                                                     | Version   | Description                                             |
+| --------------------------------------------------------------------------- | --------- | ------------------------------------------------------- |
+| [`flutter_lints`](https://pub.dev/packages/flutter_lints)                   | `^6.0.0`  | Recommended linting rules for Flutter projects          |
 | [`flutter_launcher_icons`](https://pub.dev/packages/flutter_launcher_icons) | `^0.14.4` | Auto-generate adaptive launcher icons for Android & iOS |
 
 ---
@@ -122,19 +122,19 @@ Snaptix uses a consistent design system defined in `lib/core/theme/`:
 
 Routing is handled by `go_router`. Named routes are defined in `AppRoutes`:
 
-| Route Constant | Path | Screen |
-|---|---|---|
-| `AppRoutes.splash` | `/` | Splash Screen |
-| `AppRoutes.onboarding` | `/onboarding` | Onboarding |
-| `AppRoutes.signIn` | `/signIn` | Sign In |
-| `AppRoutes.signUp` | `/signUp` | Sign Up |
-| `AppRoutes.main` | `/mainNavigation` | Main Shell (Bottom Nav) |
-| `AppRoutes.explore` | `/explore` | Explore Events |
-| `AppRoutes.savedEvent` | `/savedEvent` | Saved Events |
-| `AppRoutes.ticket` | `/ticket` | My Tickets |
-| `AppRoutes.eventDetail` | `/eventDetail` | Event Detail |
-| `AppRoutes.confirmation` | `/confirmation` | Booking Confirmation |
-| `AppRoutes.profile` | `/profile` | User Profile |
+| Route Constant           | Path              | Screen                  |
+| ------------------------ | ----------------- | ----------------------- |
+| `AppRoutes.splash`       | `/`               | Splash Screen           |
+| `AppRoutes.onboarding`   | `/onboarding`     | Onboarding              |
+| `AppRoutes.signIn`       | `/signIn`         | Sign In                 |
+| `AppRoutes.signUp`       | `/signUp`         | Sign Up                 |
+| `AppRoutes.main`         | `/mainNavigation` | Main Shell (Bottom Nav) |
+| `AppRoutes.explore`      | `/explore`        | Explore Events          |
+| `AppRoutes.savedEvent`   | `/savedEvent`     | Saved Events            |
+| `AppRoutes.ticket`       | `/ticket`         | My Tickets              |
+| `AppRoutes.eventDetail`  | `/eventDetail`    | Event Detail            |
+| `AppRoutes.confirmation` | `/confirmation`   | Booking Confirmation    |
+| `AppRoutes.profile`      | `/profile`        | User Profile            |
 
 ---
 
@@ -162,17 +162,20 @@ assets/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/shiv4mand4l/Snaptix.git
    cd Snaptix
    ```
 
 2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
 
 3. **Run the app**
+
    ```bash
    flutter run
    ```
@@ -186,15 +189,15 @@ assets/
 
 ## 📂 Key Files
 
-| File | Purpose |
-|---|---|
-| `lib/main.dart` | App entry point — wires up all repositories and BLoCs |
-| `lib/app/my_app.dart` | Root widget with theme and router setup |
-| `lib/core/routes/app_router.dart` | Go Router configuration |
-| `lib/core/routes/app_routes.dart` | Named route constants |
-| `lib/core/theme/app_theme.dart` | Material 3 theme configuration |
-| `lib/core/constants/` | App-wide constants (colors, strings, etc.) |
-| `pubspec.yaml` | Project dependencies and asset declarations |
+| File                              | Purpose                                               |
+| --------------------------------- | ----------------------------------------------------- |
+| `lib/main.dart`                   | App entry point — wires up all repositories and BLoCs |
+| `lib/app/my_app.dart`             | Root widget with theme and router setup               |
+| `lib/core/routes/app_router.dart` | Go Router configuration                               |
+| `lib/core/routes/app_routes.dart` | Named route constants                                 |
+| `lib/core/theme/app_theme.dart`   | Material 3 theme configuration                        |
+| `lib/core/constants/`             | App-wide constants (colors, strings, etc.)            |
+| `pubspec.yaml`                    | Project dependencies and asset declarations           |
 
 ---
 
@@ -242,4 +245,4 @@ This project is for demonstration and learning purposes.
 
 ---
 
-*Built with ❤️ using Flutter*
+_Built with ❤️ by Shivam Mandal_

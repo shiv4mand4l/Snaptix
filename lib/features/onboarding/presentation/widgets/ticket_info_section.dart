@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/constants/app_colors.dart';
 
 class TicketInfoSection extends StatelessWidget {
   const TicketInfoSection({super.key});
@@ -38,14 +39,14 @@ class TicketInfoSection extends StatelessWidget {
           ),
 
           /// Divider
-          Container(width: 1.w, height: 36.h, color: const Color(0xFFE2E4EB)),
+          Container(width: 1.w, height: 36.h, color: AppColors.disabled),
 
           SizedBox(width: 24.w),
 
           /// Entry Gate
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   'Entry Gate',

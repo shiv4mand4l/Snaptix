@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'qr_code_container.dart';
+import 'package:flutter_task/features/onboarding/presentation/widgets/qr_code_container.dart';
 
 class TicketBottomSection extends StatelessWidget {
   const TicketBottomSection({super.key});
@@ -41,8 +40,6 @@ class TicketBottomSection extends StatelessWidget {
               ],
             ),
           ),
-
-          SizedBox(width: 16.w),
 
           const QrCodeContainer(),
         ],

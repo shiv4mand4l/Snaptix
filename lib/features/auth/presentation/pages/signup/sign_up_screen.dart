@@ -1,7 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_task/shared/widgets/snaptix_app_bar_widget.dart';
+import 'package:flutter_task/core/routes/app_routes.dart';
+import 'package:flutter_task/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:flutter_task/features/auth/presentation/widgets/auth_logo.dart';
+import 'package:flutter_task/features/auth/presentation/widgets/auth_primary_button.dart';
+import 'package:flutter_task/shared/widgets/snaptix_app_bar_widget.dart';
+
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/theme/text_styles.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -9,13 +18,14 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF8F9FD),
+      backgroundColor: AppColors.surface,
       resizeToAvoidBottomInset: true,
       appBar: SnaptixAppBarWidget(
         showLogo: false,
         title: '',
         backgroundColor: Colors.transparent,
       ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -25,39 +35,32 @@ class SignUpScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
 
               children: [
-                /// Logo
+                // ---------------------------
+                // Logo
+                // ---------------------------
                 Center(
-                  child: Container(
-                    width: 90.w,
-                    height: 90.w,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff5B67F6),
-                      borderRadius: BorderRadius.circular(22.r),
-                    ),
-                    child: Icon(
-                      Icons.person_add_alt_1_rounded,
-                      color: Colors.white,
-                      size: 45.sp,
-                    ),
-                  ),
+                  child: const AuthLogo(logo: Icons.qr_code_scanner_outlined),
                 ),
 
-                SizedBox(height: 35.h),
+                SizedBox(height: 30.h),
 
+                // ---------------------------
+                // Title
+                // ---------------------------
                 Text(
                   "Create Account",
-                  style: TextStyle(
+                  style: AppTextStyles.h2.copyWith(
                     fontSize: 30.sp,
                     fontWeight: FontWeight.w700,
                     color: const Color(0xff202124),
                   ),
                 ),
 
-                SizedBox(height: 8.h),
+                SizedBox(height: 4.h),
 
                 Text(
                   "Create your account to get started",
-                  style: TextStyle(
+                  style: AppTextStyles.h2.copyWith(
                     fontSize: 15.sp,
                     color: Colors.grey.shade600,
                   ),
@@ -65,188 +68,84 @@ class SignUpScreen extends StatelessWidget {
 
                 SizedBox(height: 35.h),
 
-                /// Full Name
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Full Name",
-                    prefixIcon: Icon(Icons.person_outline, size: 22.sp),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 18.w,
-                      vertical: 18.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide.none,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: const BorderSide(
-                        color: Color(0xff5B67F6),
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
+                // ---------------------------
+                // Full Name
+                // ---------------------------
+                AuthTextField(
+                  prefixIcon: Icons.person_outline,
+                  hintText: 'Full Name',
                 ),
 
-                SizedBox(height: 18.h),
+                SizedBox(height: 15.h),
 
-                /// Email
-                TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "Email",
-                    prefixIcon: Icon(Icons.email_outlined, size: 22.sp),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 18.w,
-                      vertical: 18.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide.none,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: const BorderSide(
-                        color: Color(0xff5B67F6),
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
+                // ---------------------------
+                // Email
+                // ---------------------------
+                AuthTextField(
+                  prefixIcon: Icons.email_outlined,
+                  hintText: 'Email',
                 ),
 
-                SizedBox(height: 18.h),
+                SizedBox(height: 15.h),
 
-                /// Password
-                TextField(
+                // ---------------------------
+                // Password
+                // ---------------------------
+                AuthTextField(
+                  prefixIcon: Icons.lock_outline,
+                  suffixIcon: Icons.visibility_off_outlined,
+                  hintText: 'Password',
                   obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    prefixIcon: Icon(Icons.lock_outline, size: 22.sp),
-                    suffixIcon: Icon(
-                      Icons.visibility_off_outlined,
-                      size: 22.sp,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 18.w,
-                      vertical: 18.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide.none,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: const BorderSide(
-                        color: Color(0xff5B67F6),
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
+                  onSuffixTap: () {},
                 ),
 
+                SizedBox(height: 15.h),
+
+                // ---------------------------
+                // Confirm Password
+                // ---------------------------
+                AuthTextField(
+                  prefixIcon: Icons.lock_outline,
+                  suffixIcon: Icons.visibility_off_outlined,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
+                  onSuffixTap: () {},
+                ),
+
+                ///
                 SizedBox(height: 18.h),
 
-                /// Confirm Password
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Confirm Password",
-                    prefixIcon: Icon(Icons.lock_outline, size: 22.sp),
-                    suffixIcon: Icon(
-                      Icons.visibility_off_outlined,
-                      size: 22.sp,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 18.w,
-                      vertical: 18.h,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide.none,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.r),
-                      borderSide: const BorderSide(
-                        color: Color(0xff5B67F6),
-                        width: 1.5,
-                      ),
-                    ),
-                  ),
-                ),
+                // ---------------------------
+                // Sign Up
+                // ---------------------------
+                AuthPrimaryButton(text: 'Create Account', onPressed: () {}),
 
                 SizedBox(height: 30.h),
 
-                /// Create Account Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 56.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff5B67F6),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Signup Logic
-                    },
-                    child: Text(
-                      "Create Account",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-
-                const Spacer(),
-
+                // ---------------------------
+                // Sign In
+                // ---------------------------
                 Padding(
                   padding: EdgeInsets.only(bottom: 25.h),
                   child: Center(
                     child: GestureDetector(
-                      onTap: () => context.pop(),
+                      onTap: () {
+                        context.pushReplacement(AppRoutes.signIn);
+                      },
                       child: RichText(
                         text: TextSpan(
                           text: "Already have an account? ",
-                          style: TextStyle(
-                            color: Colors.grey.shade700,
-                            fontSize: 15.sp,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.textSecondary,
+                            fontSize: 13.sp,
                           ),
                           children: [
                             TextSpan(
                               text: "Login",
-                              style: TextStyle(
-                                color: const Color(0xff5B67F6),
+                              style: AppTextStyles.bodyExtraMedium.copyWith(
+                                color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15.sp,
+                                fontSize: 12.sp,
                               ),
                             ),
                           ],

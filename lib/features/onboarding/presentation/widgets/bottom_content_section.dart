@@ -4,6 +4,8 @@ import 'package:flutter_task/core/constants/app_colors.dart';
 import 'package:flutter_task/core/routes/app_routes.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/text_styles.dart';
+
 class BottomContentSection extends StatelessWidget {
   const BottomContentSection({super.key});
 
@@ -13,12 +15,11 @@ class BottomContentSection extends StatelessWidget {
       children: [
         Text(
           'Book Tickets',
-          style: TextStyle(
-            color: const Color(0xFF131526),
+          style: AppTextStyles.h2.copyWith(
+            color: AppColors.textPrimary,
             fontSize: 32.sp,
             fontWeight: FontWeight.bold,
             letterSpacing: -0.5,
-            fontFamily: 'serif',
           ),
         ),
 
@@ -29,7 +30,7 @@ class BottomContentSection extends StatelessWidget {
           child: Text(
             'Secure your spot in seconds and enjoy instant entry to the most exclusive events.',
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: AppTextStyles.bodySmall.copyWith(
               color: const Color(0xFF7E8494),
               fontSize: 15.sp,
               height: 1.45,
@@ -37,7 +38,7 @@ class BottomContentSection extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 32.h),
+        SizedBox(height: 20.h),
 
         /// Get Started Button
         SizedBox(
@@ -82,16 +83,16 @@ class BottomContentSection extends StatelessWidget {
         /// Sign In
         GestureDetector(
           onTap: () {
-            context.go(AppRoutes.signIn);
+            context.pushReplacement(AppRoutes.signUp);
           },
           child: RichText(
             text: TextSpan(
               style: TextStyle(color: const Color(0xFF7E8494), fontSize: 13.sp),
-              children: const [
+              children: [
                 TextSpan(text: 'Already have an account? '),
                 TextSpan(
-                  text: 'Sign In',
-                  style: TextStyle(
+                  text: 'Sign Up',
+                  style: AppTextStyles.caption.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                   ),

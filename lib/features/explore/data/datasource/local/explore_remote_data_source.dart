@@ -1,3 +1,5 @@
+import 'package:flutter_task/core/constants/app_images.dart';
+
 import '../../models/banner_model.dart';
 import '../../models/category_model.dart';
 import '../../models/event_model.dart';
@@ -36,8 +38,7 @@ class ExploreRemoteDataSourceImpl implements ExploreRemoteDataSource {
         time: '8:00 PM',
         location: 'The Warehouse District, NY',
         price: 89.00,
-        imageUrl:
-            'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800',
+        imageUrl: AppImages.dance,
         isTrending: true,
       ),
     ];
@@ -55,8 +56,7 @@ class ExploreRemoteDataSourceImpl implements ExploreRemoteDataSource {
         time: '12:00 PM',
         location: '1.2 miles away',
         price: 25.00,
-        imageUrl:
-            'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800',
+        imageUrl: AppImages.concert,
       ),
     ];
   }
