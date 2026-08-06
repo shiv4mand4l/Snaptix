@@ -96,7 +96,11 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: isTablet ? 36.h : 28.h),
 
                   // Logout
-                  LogoutButton(onTap: () {}),
+                  LogoutButton(
+                    onTap: () {
+                      context.pushReplacement(AppRoutes.signIn);
+                    },
+                  ),
 
                   SizedBox(height: isTablet ? 50.h : 40.h),
                 ],

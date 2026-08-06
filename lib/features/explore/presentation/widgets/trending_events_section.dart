@@ -42,7 +42,7 @@ class TrendingEventsSection extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
               ),
               onPressed: () {
-                context.push(AppRoutes.eventDetail);
+                context.push(AppRoutes.ticket);
               },
               child: Text("View All", style: AppTextStyles.bodyMedium),
             ),

@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_task/features/tickets/presentation/widgets/ticket_card.dart';
 import 'package:flutter_task/shared/widgets/app_loader.dart';
 import 'package:flutter_task/shared/widgets/snaptix_app_bar_widget.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../../shared/widgets/app_floating_action_button.dart';
 import '../../../explore/presentation/pages/widgets/app_bar_action.dart';
 import '../../../explore/presentation/pages/widgets/near_you_event_card.dart';
@@ -85,6 +87,7 @@ class _TicketScreenState extends State<TicketScreen> {
                           ticket: ticket,
                           onViewTicketTap: () {
                             debugPrint(ticket.ticketId);
+                            context.push(AppRoutes.eventDetail);
                           },
                         ),
                       );
