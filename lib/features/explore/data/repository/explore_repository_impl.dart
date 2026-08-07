@@ -1,35 +1,43 @@
+import 'package:flutter_task/features/explore/domain/entities/nearby_event_entities.dart';
+
+import '../../domain/entities/banner_entity.dart';
 import '../../domain/entities/category_entities.dart';
 import '../../domain/entities/event_entity.dart';
-import '../../domain/entities/banner_entity.dart';
 import '../../domain/repository/explore_repositories.dart';
-import '../datasource/local/explore_remote_data_source.dart';
+import '../datasource/local/explore_local_data_source.dart';
 
 class ExploreRepositoryImpl implements ExploreRepository {
-  final ExploreRemoteDataSource remoteDataSource;
+  final ExploreLocalDataSource localDataSource;
 
-  ExploreRepositoryImpl({required this.remoteDataSource});
-
-  @override
-  Future<List<CategoryEntity>> getCategories() =>
-      remoteDataSource.fetchCategories();
+  ExploreRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<List<EventEntity>> getTrendingEvents() =>
-      remoteDataSource.fetchTrendingEvents();
+  Future<List<CategoryEntity>> getCategories() async {
+    return await localDataSource.fetchCategories();
+  }
 
   @override
-  Future<List<EventEntity>> getNearbyEvents() =>
-      remoteDataSource.fetchNearbyEvents();
+  Future<List<EventEntity>> getTrendingEvents() async {
+    return await localDataSource.fetchTrendingEvents();
+  }
 
   @override
-  Future<BannerEntity> getFeaturedBanner() =>
-      remoteDataSource.fetchFeaturedBanner();
+  Future<List<NearbyEventEntity>> getNearbyEvents() async {
+    return await localDataSource.fetchNearbyEvents();
+  }
 
   @override
-  Future<List<EventEntity>> searchEvents(String query) =>
-      remoteDataSource.searchEvents(query);
+  Future<BannerEntity> getFeaturedBanner() async {
+    return await localDataSource.fetchFeaturedBanner();
+  }
 
   @override
-  Future<bool> toggleFavourite(int eventId) =>
-      remoteDataSource.toggleFavourite(eventId);
+  Future<List<EventEntity>> searchEvents(String query) async {
+    return await localDataSource.searchEvents(query);
+  }
+
+  @override
+  Future<bool> toggleFavourite(int eventId) async {
+    return await localDataSource.toggleFavourite(eventId);
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/theme/text_styles.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/similar_event.dart';
@@ -39,12 +40,12 @@ class SimilarEventCard extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: Image.network(
+                      child: Image.asset(
                         event.imageUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (_, _, _) {
                           return Container(
-                            color: Colors.grey.shade300,
+                            color: AppColors.disabled,
                             child: Icon(Icons.image, size: 40.sp),
                           );
                         },
@@ -57,13 +58,17 @@ class SimilarEventCard extends StatelessWidget {
                       child: GestureDetector(
                         onTap: onFavoriteTap,
                         child: CircleAvatar(
-                          radius: 18.r,
-                          backgroundColor: Colors.white,
+                          radius: 16.r,
+                          backgroundColor: AppColors.surface.withValues(
+                            alpha: 0.2,
+                          ),
                           child: Icon(
                             event.isFavorite
                                 ? Icons.favorite
                                 : Icons.favorite_border,
-                            color: event.isFavorite ? Colors.red : Colors.grey,
+                            color: event.isFavorite
+                                ? AppColors.error
+                                : AppColors.surface.withValues(alpha: 0.8),
                             size: 20.sp,
                           ),
                         ),
@@ -85,9 +90,8 @@ class SimilarEventCard extends StatelessWidget {
                     children: [
                       Text(
                         event.category,
-                        style: TextStyle(
+                        style: AppTextStyles.caption.copyWith(
                           color: AppColors.primary,
-                          fontSize: 11.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -98,10 +102,8 @@ class SimilarEventCard extends StatelessWidget {
                         event.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
+                        style: AppTextStyles.h5.copyWith(
+                          fontWeight: FontWeight(800),
                         ),
                       ),
 
@@ -112,7 +114,7 @@ class SimilarEventCard extends StatelessWidget {
                           Icon(
                             Icons.calendar_today,
                             size: 14.sp,
-                            color: Colors.grey,
+                            color: AppColors.textHint,
                           ),
 
                           SizedBox(width: 6.w),
@@ -122,10 +124,7 @@ class SimilarEventCard extends StatelessWidget {
                               event.dateAndLocation,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 12.sp,
-                              ),
+                              style: AppTextStyles.caption,
                             ),
                           ),
                         ],

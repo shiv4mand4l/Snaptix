@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/constants/app_colors.dart';
+import 'package:flutter_task/core/theme/text_styles.dart';
 
 class TicketDatePill extends StatelessWidget {
   final String day;
@@ -12,10 +14,10 @@ class TicketDatePill extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.55),
+        color: AppColors.textPrimary.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(14.r),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.15),
+          color: AppColors.surface.withValues(alpha: 0.15),
           width: 1.w,
         ),
       ),
@@ -24,18 +26,16 @@ class TicketDatePill extends StatelessWidget {
         children: [
           Text(
             day,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16.sp,
+            style: AppTextStyles.labelMedium.copyWith(
+              color: AppColors.surface,
               height: 1.1,
             ),
           ),
           Text(
             month.toUpperCase(),
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 10.sp,
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.disabled,
+              fontSize: 8.sp,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
             ),

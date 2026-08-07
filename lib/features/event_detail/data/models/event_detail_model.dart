@@ -16,6 +16,7 @@ class EventDetailModel extends EventDetail {
     required super.locationTitle,
     required super.locationSubtitle,
     required super.aboutDescription,
+    required super.venueName,
     required OrganizerModel super.organizer,
     required List<SimilarEventModel> super.similarEvents,
     required super.priceText,
@@ -36,6 +37,7 @@ class EventDetailModel extends EventDetail {
       locationTitle: json['locationTitle'],
       locationSubtitle: json['locationSubtitle'],
       aboutDescription: json['aboutDescription'],
+      venueName: json['venueName'],
       organizer: OrganizerModel.fromJson(json['organizer']),
       similarEvents: (json['similarEvents'] as List)
           .map((e) => SimilarEventModel.fromJson(e))
@@ -59,6 +61,7 @@ class EventDetailModel extends EventDetail {
       'locationTitle': locationTitle,
       'locationSubtitle': locationSubtitle,
       'aboutDescription': aboutDescription,
+      'venueName': venueName,
       'organizer': (organizer as OrganizerModel).toJson(),
       'similarEvents': (similarEvents as List<SimilarEventModel>)
           .map((e) => e.toJson())
@@ -82,6 +85,7 @@ class EventDetailModel extends EventDetail {
       locationTitle: event.locationTitle,
       locationSubtitle: event.locationSubtitle,
       aboutDescription: event.aboutDescription,
+      venueName: event.venueName,
       organizer: OrganizerModel.fromEntity(event.organizer),
       similarEvents: event.similarEvents
           .map((e) => SimilarEventModel.fromEntity(e))

@@ -76,7 +76,7 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.confirmation,
-        name: '/confirmTicket',
+        name: '/confirmation',
         builder: (context, state) => const ConfirmationScreen(),
       ),
 

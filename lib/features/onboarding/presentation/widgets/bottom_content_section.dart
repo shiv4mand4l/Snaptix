@@ -13,32 +13,20 @@ class BottomContentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Book Tickets',
-          style: AppTextStyles.h2.copyWith(
-            color: AppColors.textPrimary,
-            fontSize: 32.sp,
-            fontWeight: FontWeight.bold,
-            letterSpacing: -0.5,
-          ),
-        ),
+        Text('Book Tickets', style: AppTextStyles.h1),
 
-        SizedBox(height: 12.h),
+        SizedBox(height: 4.h),
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 14.w),
           child: Text(
             'Secure your spot in seconds and enjoy instant entry to the most exclusive events.',
             textAlign: TextAlign.center,
-            style: AppTextStyles.bodySmall.copyWith(
-              color: const Color(0xFF7E8494),
-              fontSize: 15.sp,
-              height: 1.45,
-            ),
+            style: AppTextStyles.bodySmall.copyWith(height: 1.2),
           ),
         ),
 
-        SizedBox(height: 20.h),
+        SizedBox(height: 22.h),
 
         /// Get Started Button
         SizedBox(
@@ -60,17 +48,14 @@ class BottomContentSection extends StatelessWidget {
               children: [
                 Text(
                   'Get Started',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
+                  style: AppTextStyles.bodyLarge.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'serif',
                   ),
                 ),
                 SizedBox(width: 8.w),
                 Icon(
                   Icons.arrow_forward_rounded,
-                  color: Colors.white,
+                  color: AppColors.surface,
                   size: 22.sp,
                 ),
               ],
@@ -87,7 +72,10 @@ class BottomContentSection extends StatelessWidget {
           },
           child: RichText(
             text: TextSpan(
-              style: TextStyle(color: const Color(0xFF7E8494), fontSize: 13.sp),
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.textSecondary.withValues(alpha: 0.7),
+                fontWeight: FontWeight.bold,
+              ),
               children: [
                 TextSpan(text: 'Already have an account? '),
                 TextSpan(

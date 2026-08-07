@@ -14,6 +14,7 @@ class EventDetail {
   final String locationTitle;
   final String locationSubtitle;
   final String aboutDescription;
+  final String venueName;
   final String priceText;
   final bool isFavorite;
   final Organizer organizer;
@@ -32,6 +33,7 @@ class EventDetail {
     required this.locationTitle,
     required this.locationSubtitle,
     required this.aboutDescription,
+    required this.venueName,
     required this.priceText,
     required this.isFavorite,
     required this.organizer,
@@ -51,6 +53,7 @@ class EventDetail {
     String? locationTitle,
     String? locationSubtitle,
     String? aboutDescription,
+    String? venueName,
     String? priceText,
     bool? isFavorite,
     Organizer? organizer,
@@ -68,6 +71,7 @@ class EventDetail {
       dateSubtitle: dateSubtitle ?? this.dateSubtitle,
       locationTitle: locationTitle ?? this.locationTitle,
       locationSubtitle: locationSubtitle ?? this.locationSubtitle,
+      venueName: venueName ?? this.venueName,
       aboutDescription: aboutDescription ?? this.aboutDescription,
       priceText: priceText ?? this.priceText,
       isFavorite: isFavorite ?? this.isFavorite,

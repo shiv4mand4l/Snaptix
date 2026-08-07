@@ -15,10 +15,10 @@ class FilterChipsRow extends StatelessWidget {
     final categories = ['All Events', 'Concerts', 'Workshops', 'Festivals'];
 
     return SizedBox(
-      height: 44.h,
+      height: 40.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
         separatorBuilder: (_, _) => SizedBox(width: 8.w),

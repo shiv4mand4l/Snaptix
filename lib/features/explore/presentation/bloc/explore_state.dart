@@ -7,9 +7,13 @@ sealed class ExploreState extends Equatable {
   List<Object> get props => [];
 }
 
-final class ExploreInitial extends ExploreState {}
+final class ExploreInitial extends ExploreState {
+  const ExploreInitial();
+}
 
-final class IsLoadingExplore extends ExploreState {}
+final class IsLoadingExplore extends ExploreState {
+  const IsLoadingExplore();
+}
 
 final class ErrorExplore extends ExploreState {
   final String message;
@@ -24,22 +28,25 @@ final class ErrorExplore extends ExploreState {
 final class ExploreLoaded extends ExploreState {
   final List<CategoryEntity> categories;
   final List<EventEntity> trendingEvents;
-  final List<EventEntity> nearbyEvents;
+  final List<NearbyEventEntity> nearbyEvents;
   final BannerEntity featuredBanner;
   final int selectedCategoryId;
+  final String selectedCategory;
   const ExploreLoaded({
     required this.categories,
     required this.trendingEvents,
     required this.nearbyEvents,
     required this.featuredBanner,
     this.selectedCategoryId = 0,
+    this.selectedCategory = 'All',
   });
   ExploreLoaded copyWith({
     List<CategoryEntity>? categories,
     List<EventEntity>? trendingEvents,
-    List<EventEntity>? nearbyEvents,
+    List<NearbyEventEntity>? nearbyEvents,
     BannerEntity? featuredBanner,
     int? selectedCategoryId,
+    String? selectedCategory,
   }) {
     return ExploreLoaded(
       categories: categories ?? this.categories,
@@ -47,6 +54,7 @@ final class ExploreLoaded extends ExploreState {
       nearbyEvents: nearbyEvents ?? this.nearbyEvents,
       featuredBanner: featuredBanner ?? this.featuredBanner,
       selectedCategoryId: selectedCategoryId ?? this.selectedCategoryId,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
     );
   }
 
@@ -57,5 +65,6 @@ final class ExploreLoaded extends ExploreState {
     nearbyEvents,
     featuredBanner,
     selectedCategoryId,
+    selectedCategory,
   ];
 }

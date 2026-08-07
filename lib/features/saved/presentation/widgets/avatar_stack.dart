@@ -88,6 +88,7 @@ class AvatarStack extends StatelessWidget {
                     maxLines: 1,
                     style: AppTextStyles.caption.copyWith(
                       color: AppColors.textDark,
+                      fontSize: 9,
                     ),
                   ),
                 ),

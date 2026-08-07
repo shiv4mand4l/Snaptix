@@ -13,11 +13,12 @@ final class RefreshExplore extends ExploreEvent {}
 
 final class SelectCategory extends ExploreEvent {
   final int categoryId;
+  final String category;
 
-  const SelectCategory({required this.categoryId});
+  const SelectCategory(this.categoryId, this.category);
 
   @override
-  List<Object> get props => [categoryId];
+  List<Object> get props => [categoryId, category];
 }
 
 final class SearchEvent extends ExploreEvent {

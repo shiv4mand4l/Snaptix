@@ -53,7 +53,7 @@ class EventCardMain extends StatelessWidget {
                     fit: StackFit.expand,
 
                     children: [
-                      Image.network(
+                      Image.asset(
                         event.imageUrl,
 
                         fit: BoxFit.cover,
@@ -65,7 +65,7 @@ class EventCardMain extends StatelessWidget {
                             child: Icon(
                               Icons.image_not_supported,
                               size: 50.sp,
-                              color: Colors.white,
+                              color: AppColors.surface,
                             ),
                           );
                         },
@@ -113,7 +113,7 @@ class EventCardMain extends StatelessWidget {
                               SizedBox(width: 3.w),
                               Text(
                                 "TRENDING",
-                                style: AppTextStyles.smallCaption.copyWith(
+                                style: AppTextStyles.labelExtraMedium.copyWith(
                                   color: AppColors.surface,
                                   fontWeight: FontWeight(600),
                                 ),
@@ -177,17 +177,13 @@ class EventCardMain extends StatelessWidget {
 
                               overflow: TextOverflow.ellipsis,
 
-                              style: TextStyle(
+                              style: AppTextStyles.h3.copyWith(
                                 color: AppColors.surface,
-
-                                fontWeight: FontWeight.bold,
-
                                 fontSize: isTablet ? 26.sp : 22.sp,
                               ),
                             ),
 
-                            SizedBox(height: 12.h),
-
+                            // SizedBox(height: 12.h),
                             Wrap(
                               spacing: 15.w,
 
@@ -210,7 +206,7 @@ class EventCardMain extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 14.w,
 
-                                    vertical: 8.h,
+                                    vertical: 4.h,
                                   ),
 
                                   decoration: BoxDecoration(
@@ -261,7 +257,7 @@ class EventCardMain extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
 
-                            foregroundColor: Colors.white,
+                            foregroundColor: AppColors.surface,
 
                             padding: EdgeInsets.symmetric(
                               horizontal: isTablet ? 35.w : 24.w,
@@ -311,9 +307,9 @@ class _InfoItem extends StatelessWidget {
       crossAxisAlignment: .center,
       mainAxisAlignment: .spaceAround,
       children: [
-        Icon(icon, color: AppColors.surface, size: 16.sp),
+        Icon(icon, color: AppColors.border, size: 16.sp),
 
-        SizedBox(width: 6.w),
+        SizedBox(width: 4.w),
 
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 140.w),
@@ -323,8 +319,8 @@ class _InfoItem extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
 
-            style: AppTextStyles.labelMedium.copyWith(
-              color: AppColors.surface,
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.border,
               // fontSize: 10.sp,
             ),
           ),

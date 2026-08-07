@@ -19,12 +19,12 @@ class BannerModel extends BannerEntity {
   }
 
   /// Converts BannerModel instance to JSON Map
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'button_text': buttonText,
-    };
-  }
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'id': id,
+  //     'title': title,
+  //     'description': description,
+  //     'button_text': buttonText,
+  //   };
+  // }
 }

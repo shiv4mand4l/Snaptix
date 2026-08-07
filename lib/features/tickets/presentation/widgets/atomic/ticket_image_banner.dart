@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_task/shared/widgets/app_loader.dart';
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/theme/text_styles.dart';
 import '../ticket_status.dart';
 import 'ticket_date_pill.dart';
 import 'ticket_status_badge.dart';
@@ -32,21 +32,21 @@ class TicketImageBanner extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
-              child: Image.network(
+              child: Image.asset(
                 imageUrl,
                 fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    color: AppColors.surface,
-                    child: const Center(child: AppLoader()),
-                  );
-                },
+                // loadingBuilder: (context, child, loadingProgress) {
+                //   if (loadingProgress == null) return child;
+                //   return Container(
+                //     color: AppColors.surface,
+                //     child: AppLoader(),
+                // );
+                // },
                 errorBuilder: (_, _, _) => Container(
-                  color: AppColors.textDark,
+                  color: AppColors.disabled,
                   child: Icon(
                     Icons.confirmation_number_outlined,
-                    color: AppColors.disabled,
+                    color: AppColors.textPrimary,
                     size: 32.sp,
                   ),
                 ),
@@ -63,11 +63,11 @@ class TicketImageBanner extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.textDark.withValues(alpha: 0.15),
-                    AppColors.textDark.withValues(alpha: 0.4),
-                    AppColors.textDark.withValues(alpha: 0.85),
+                    Colors.transparent,
+                    AppColors.textPrimary.withValues(alpha: .30),
+                    AppColors.textPrimary.withValues(alpha: .85),
                   ],
-                  stops: const [0.0, 0.5, 1.0],
+                  stops: const [0.30, 0.60, 1.0],
                 ),
               ),
             ),
@@ -96,11 +96,8 @@ class TicketImageBanner extends StatelessWidget {
               title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: AppColors.surface,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
-                letterSpacing: -0.3,
+              style: AppTextStyles.eventTitle.copyWith(
+                fontSize: 22,
                 height: 1.2,
               ),
             ),

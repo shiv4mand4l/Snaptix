@@ -10,7 +10,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../shared/widgets/app_floating_action_button.dart';
 import '../../../explore/presentation/pages/widgets/app_bar_action.dart';
-import '../../../explore/presentation/pages/widgets/near_you_event_card.dart';
+import '../../../explore/presentation/pages/widgets/notification_action_icon.dart';
 import '../bloc/tickets_bloc.dart';
 import '../widgets/tickets_header.dart';
 import '../widgets/tickets_tab_selector.dart';
@@ -25,11 +25,11 @@ class TicketScreen extends StatefulWidget {
 class _TicketScreenState extends State<TicketScreen> {
   int selectedTab = 0;
 
-  @override
-  void initState() {
-    context.read<TicketsBloc>().add(OnLoadTickets());
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   context.read<TicketsBloc>().add(OnLoadTickets());
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,63 +42,74 @@ class _TicketScreenState extends State<TicketScreen> {
         ],
       ),
 
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TicketsHeader(),
-            SizedBox(height: 20.h),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<TicketsBloc>().add(OnLoadTickets());
+        },
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TicketsHeader(),
+              SizedBox(height: 20.h),
 
-            TicketsTabSelector(
-              selectedIndex: selectedTab,
-              onChanged: (index) {
-                setState(() => selectedTab = index);
+              TicketsTabSelector(
+                selectedIndex: selectedTab,
+                onChanged: (index) {
+                  setState(() => selectedTab = index);
 
-                context.read<TicketsBloc>().add(FilterTickets(index == 0));
-              },
-            ),
+                  context.read<TicketsBloc>().add(FilterTickets(index == 0));
+                },
+              ),
 
-            SizedBox(height: 24.h),
+              SizedBox(height: 24.h),
 
-            /// Only this rebuilds
-            BlocBuilder<TicketsBloc, TicketsState>(
-              builder: (context, state) {
-                if (state is TicketFiltering) {
-                  return const AppLoader();
-                }
+              /// Only this rebuilds
+              BlocBuilder<TicketsBloc, TicketsState>(
+                builder: (context, state) {
+                  if (state is TicketsInitial || state is TicketFiltering) {
+                    return const AppLoader();
+                  }
 
-                if (state is TicketError) {
-                  return Center(child: Text(state.message));
-                }
+                  if (state is TicketError) {
+                    return Center(child: Text(state.message));
+                  }
 
-                if (state is TicketLoaded) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.tickets.length,
-                    itemBuilder: (context, index) {
-                      final ticket = state.tickets[index];
+                  if (state is TicketLoaded) {
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<TicketsBloc>().add(OnLoadTickets());
+                      },
+                      color: AppColors.primary,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.tickets.length,
+                        itemBuilder: (context, index) {
+                          final ticket = state.tickets[index];
 
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 20.h),
-                        child: TicketCard(
-                          ticket: ticket,
-                          onViewTicketTap: () {
-                            debugPrint(ticket.ticketId);
-                            context.push(AppRoutes.eventDetail);
-                          },
-                        ),
-                      );
-                    },
-                  );
-                }
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 20.h),
+                            child: TicketCard(
+                              ticket: ticket,
+                              onViewTicketTap: () {
+                                debugPrint(ticket.ticketId);
+                                context.push(AppRoutes.eventDetail);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
 
-                return const SizedBox();
-              },
-            ),
-          ],
+                  return const SizedBox();
+                },
+              ),
+            ],
+          ),
         ),
       ),
       // Floating Action Button

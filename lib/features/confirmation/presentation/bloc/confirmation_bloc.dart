@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/booking_confirmation_model.dart';
 import 'confirmation_event.dart';
@@ -16,9 +18,10 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     LoadBookingDetails event,
     Emitter<ConfirmationState> emit,
   ) async {
+    log('🔵 LoadConfirmation started');
     emit(ConfirmationLoading());
     // Simulate minor loading delay for realistic premium feel
-    await Future.delayed(const Duration(milliseconds: 600));
+    // await Future.delayed(const Duration(milliseconds: 600));
     emit(ConfirmationLoaded(BookingConfirmationModel.mock()));
   }
 

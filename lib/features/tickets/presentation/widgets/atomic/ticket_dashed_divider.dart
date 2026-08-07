@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/constants/app_colors.dart';
 
 class TicketDashedDivider extends StatelessWidget {
   final Color backgroundColor;
@@ -7,7 +8,7 @@ class TicketDashedDivider extends StatelessWidget {
 
   const TicketDashedDivider({
     super.key,
-    this.backgroundColor = const Color(0xCCFAFAFC),
+    this.backgroundColor = AppColors.disabled,
     this.lineDashColor = const Color(0xD6E2E4EB),
   });
 

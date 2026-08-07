@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_task/core/constants/app_colors.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
-import 'package:flutter_task/shared/widgets/app_loader.dart';
 import '../../data/models/booking_confirmation_model.dart';
 import 'ticket_card_cliper.dart';
 import 'ticket_cutout_divider.dart';
@@ -81,14 +80,14 @@ class TicketCard extends StatelessWidget {
       ),
       child: Container(
         height: 180.h,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              AppColors.textPrimary,
-              AppColors.textDark,
-              AppColors.textPrimary,
+              AppColors.textPrimary.withValues(alpha: 0.4),
+              AppColors.textDark.withValues(alpha: .02),
+              AppColors.textPrimary.withValues(alpha: 0.4),
             ],
           ),
         ),
@@ -101,17 +100,17 @@ class TicketCard extends StatelessWidget {
 
             // Actual premium network image for realism
             Positioned.fill(
-              child: Image.network(
-                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop',
+              child: Image.asset(
+                'assets/images/Party Pop.jpg',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   // Muted fallback showing glowing gradients
                   return Container();
                 },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const Center(child: AppLoader());
-                },
+                // loadingBuilder: (context, child, loadingProgress) {
+                //   if (loadingProgress == null) return child;
+                //   return const Center(child: AppLoader());
+                // },
               ),
             ),
 
@@ -186,7 +185,7 @@ class TicketCard extends StatelessWidget {
             Positioned(
               left: 16.w,
               right: 16.w,
-              bottom: 16.h,
+              bottom: 10.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -201,10 +200,12 @@ class TicketCard extends StatelessWidget {
                     ),
                     child: Text(
                       bookingDetails.ticketType.toUpperCase(),
-                      style: AppTextStyles.labelExtraMedium,
+                      style: AppTextStyles.labelExtraMedium.copyWith(
+                        fontWeight: .bold,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 6.h),
+                  // SizedBox(height: 6.h),
                   Text(
                     bookingDetails.eventName,
                     style: AppTextStyles.eventTitle,

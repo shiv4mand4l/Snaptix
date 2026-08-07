@@ -1,22 +1,3 @@
-// import 'package:equatable/equatable.dart';
-
-// class SavedEventEntities extends Equatable {
-//   final String id;
-//   final String title;
-//   final String category;
-//   final bool isSaved;
-
-//   const SavedEventEntities({
-//     required this.id,
-//     required this.title,
-//     required this.category,
-//     required this.isSaved,
-//   });
-
-//   @override
-//   List<Object?> get props => [id, title, category, isSaved];
-// }
-
 import 'package:equatable/equatable.dart';
 
 class SavedEventEntity extends Equatable {

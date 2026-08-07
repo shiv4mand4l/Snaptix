@@ -8,7 +8,7 @@ abstract class TicketLocalDataSource {
 class TicketLocalDataSourceImpl implements TicketLocalDataSource {
   @override
   Future<List<TicketModel>> getTickets() async {
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1));
 
     return const [
       // Card 1
@@ -19,7 +19,7 @@ class TicketLocalDataSourceImpl implements TicketLocalDataSource {
         dateTimeString: 'Sat, 20:00 PM',
         venue: 'Skyline Arena',
         ticketId: '#PX-9920',
-        imageUrl: 'https://picsum.photos/400/300?random=1',
+        imageUrl: 'assets/images/Neon Nights Festival.jpg',
         status: TicketStatus.liveSoon,
       ),
 
@@ -31,7 +31,7 @@ class TicketLocalDataSourceImpl implements TicketLocalDataSource {
         dateTimeString: 'Sun, 11:00 AM',
         venue: 'City Park',
         ticketId: '#PX-5521',
-        imageUrl: 'https://picsum.photos/400/300?random=2',
+        imageUrl: 'assets/images/Food Carnival.jpg',
         status: TicketStatus.confirmed,
       ),
 
@@ -43,7 +43,7 @@ class TicketLocalDataSourceImpl implements TicketLocalDataSource {
         dateTimeString: 'Wed, 10:00 AM',
         venue: 'Convention Center',
         ticketId: '#PX-8812',
-        imageUrl: 'https://picsum.photos/400/300?random=3',
+        imageUrl: 'assets/images/Tech Expo 2024.jpg',
         status: TicketStatus.confirmed,
       ),
 
@@ -55,7 +55,7 @@ class TicketLocalDataSourceImpl implements TicketLocalDataSource {
         dateTimeString: 'Fri, 19:30 PM',
         venue: 'Grand Theater',
         ticketId: '#PX-3341',
-        imageUrl: 'https://picsum.photos/400/300?random=4',
+        imageUrl: 'assets/images/Indie Rock Concert.jpg',
         status: TicketStatus.liveSoon,
       ),
 
@@ -67,7 +67,7 @@ class TicketLocalDataSourceImpl implements TicketLocalDataSource {
         dateTimeString: 'Fri, 03:00 PM',
         venue: 'Innovation Hub',
         ticketId: '#PX-7771',
-        imageUrl: 'https://picsum.photos/400/300?random=5',
+        imageUrl: 'assets/images/Tech Meetup.jpg',
         status: TicketStatus.completed,
       ),
 
@@ -79,7 +79,7 @@ class TicketLocalDataSourceImpl implements TicketLocalDataSource {
         dateTimeString: 'Sat, 21:00 PM',
         venue: 'Beach Resort Arena',
         ticketId: '#PX-1102',
-        imageUrl: 'https://picsum.photos/400/300?random=6',
+        imageUrl: 'assets/images/Summer EDM Night.jpg',
         status: TicketStatus.completed,
       ),
     ];

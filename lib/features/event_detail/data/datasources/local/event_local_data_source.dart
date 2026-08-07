@@ -11,12 +11,11 @@ abstract class EventLocalDataSource {
 class EventLocalDataSourceImpl implements EventLocalDataSource {
   @override
   Future<EventDetailModel> getEventDetail(String id) async {
-    await Future.delayed(const Duration(milliseconds: 700));
+    // await Future.delayed(const Duration(milliseconds: 700));
 
     return const EventDetailModel(
       id: '1',
-      bannerImageUrl:
-          'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7',
+      bannerImageUrl: 'assets/images/Indie Rock Concert.jpg',
       badgeText: 'SOLD OUT SOON',
       title: 'Rock Music Festival',
       dateTimeText: '24 May • 8 PM',
@@ -27,11 +26,12 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
       locationTitle: 'Kathmandu Arena',
       locationSubtitle: 'Kathmandu',
       aboutDescription:
-          'Experience one of the biggest live concerts featuring top international artists.',
+          'Experience an unforgettable live concert featuring top international artists. Enjoy incredible music, stunning performances, and an electrifying atmosphere.',
       priceText: '\$89',
       isFavorite: false,
+      venueName: 'Gairi Gau - 32',
       organizer: OrganizerModel(
-        logoUrl: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5',
+        logoUrl: 'assets/images/profile.png',
         name: 'Live Nation',
         rating: 4.9,
         reviewsCount: '1250',
@@ -41,21 +41,47 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
       similarEvents: [
         SimilarEventModel(
           id: '2',
-          imageUrl:
-              'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',
-          category: 'POP',
-          title: 'Summer Beats',
-          dateAndLocation: 'June 20 • LA',
+          imageUrl: 'assets/images/Agile & Scrum Essentials.jpg',
+          category: 'TECH',
+          title: 'Future Tech Summit',
+          dateAndLocation: 'August 14 • Boston',
           isFavorite: false,
         ),
+
         SimilarEventModel(
           id: '3',
-          imageUrl:
-              'https://images.unsplash.com/photo-1501386761578-eac5c94b800a',
-          category: 'ROCK',
-          title: 'Neon Night',
-          dateAndLocation: 'July 5 • NY',
+          imageUrl: 'assets/images/Booklyn Food Expo.jpg',
+          category: 'FOOD',
+          title: 'Taste of the City',
+          dateAndLocation: 'September 2 • Chicago',
           isFavorite: true,
+        ),
+
+        SimilarEventModel(
+          id: '4',
+          imageUrl: 'assets/images/Neon Horizon Festival.jpg',
+          category: 'MUSIC',
+          title: 'Neon Horizon Festival',
+          dateAndLocation: 'September 18 • Miami',
+          isFavorite: false,
+        ),
+
+        SimilarEventModel(
+          id: '5',
+          imageUrl: 'assets/images/Tech Meetup.jpg',
+          category: 'SPORTS',
+          title: 'Urban Sports Weekend',
+          dateAndLocation: 'October 7 • Seattle',
+          isFavorite: true,
+        ),
+
+        SimilarEventModel(
+          id: '6',
+          imageUrl: 'assets/images/Booklyn Food Expo.jpg',
+          category: 'ART',
+          title: 'Modern Art Showcase',
+          dateAndLocation: 'October 21 • San Francisco',
+          isFavorite: false,
         ),
       ],
     );

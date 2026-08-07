@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_task/core/constants/app_colors.dart';
+import 'package:flutter_task/core/theme/text_styles.dart';
+import 'package:flutter_task/features/explore/domain/entities/nearby_event_entities.dart';
 
-import '../../../../core/theme/text_styles.dart';
-import '../pages/widgets/notification_action_icon.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../pages/widgets/near_you_event_card.dart';
 
 class NearYouEventsSection extends StatelessWidget {
-  const NearYouEventsSection({super.key});
+  final List<NearbyEventEntity> nearbyEventEntity;
+
+  const NearYouEventsSection({super.key, required this.nearbyEventEntity});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
+    if (nearbyEventEntity.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //-----------------------------------------
-        // Header
-        //-----------------------------------------
+        // --------------------------------------------------
+        // HEADER
+        // --------------------------------------------------
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               flex: 3,
@@ -31,12 +36,11 @@ class NearYouEventsSection extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 12.w),
-
+            SizedBox(width: 30.w),
             Expanded(
               flex: 4,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   color: AppColors.textHint.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20.r),
@@ -47,10 +51,10 @@ class NearYouEventsSection extends StatelessWidget {
                     Icon(
                       Icons.location_on_outlined,
                       color: AppColors.primary,
-                      size: 20.sp,
+                      size: 24.sp,
                     ),
 
-                    SizedBox(width: 6.w),
+                    SizedBox(width: 8.w),
 
                     Expanded(
                       child: Column(
@@ -61,7 +65,9 @@ class NearYouEventsSection extends StatelessWidget {
                             'New York, NY',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.caption,
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
                           ),
 
                           Text(
@@ -88,24 +94,23 @@ class NearYouEventsSection extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 18.h),
+        SizedBox(height: 14.h),
 
-        //-----------------------------------------
-        // Horizontal Events
-        //-----------------------------------------
+        // --------------------------------------------------
+        // HORIZONTAL EVENTS
+        // --------------------------------------------------
         SizedBox(
-          height: 0.38.sh,
+          height: 360.h,
           child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(vertical: 6.h),
-            itemCount: 4,
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(vertical: 12.h),
+            itemCount: nearbyEventEntity.length,
             separatorBuilder: (_, _) => SizedBox(width: 16.w),
-            itemBuilder: (_, index) {
-              return SizedBox(
-                width: screenWidth * 0.82,
-                child: const NearYouEventCard(),
-              );
+            itemBuilder: (context, index) {
+              final event = nearbyEventEntity[index];
+
+              return NearYouEventCard(event: event);
             },
           ),
         ),

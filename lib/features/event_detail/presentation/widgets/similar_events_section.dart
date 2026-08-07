@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_colors.dart';
@@ -94,11 +95,10 @@ class SimilarEventsSection extends StatelessWidget {
           SizedBox(
             height: 280.h,
             child: ListView.separated(
+              scrollCacheExtent: ScrollCacheExtent.pixels(300),
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 2.w),
-              // ignore: deprecated_member_use
-              cacheExtent: 300,
               itemCount: events.length,
               separatorBuilder: (_, _) => SizedBox(width: 16.w),
               itemBuilder: (_, index) {

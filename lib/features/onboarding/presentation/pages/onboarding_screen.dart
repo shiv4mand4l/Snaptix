@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/theme/text_styles.dart';
 import 'package:flutter_task/features/onboarding/presentation/widgets/bottom_content_section.dart';
 import 'package:flutter_task/features/onboarding/presentation/widgets/interactive_floating_card.dart';
 
@@ -65,21 +66,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              SizedBox(height: 16.h),
+              SizedBox(height: 10.h),
 
               /// Logo
               Text(
                 'Snaptix',
-                style: TextStyle(
+                style: AppTextStyles.h2.copyWith(
                   fontSize: 32.sp,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,
                   letterSpacing: -0.5,
-                  fontFamily: 'serif',
                 ),
               ),
-
-              SizedBox(height: 24.h),
 
               Expanded(
                 child: Column(

@@ -7,6 +7,7 @@ import '../../../../core/constants/app_colors.dart';
 
 class EventHeaderBanner extends StatelessWidget {
   final String imageUrl;
+  final String bannerImageUrl;
   final String badgeText;
   final String title;
   final String dateTimeText;
@@ -23,6 +24,7 @@ class EventHeaderBanner extends StatelessWidget {
     required this.title,
     required this.dateTimeText,
     required this.isFavorite,
+    required this.bannerImageUrl,
     this.onBackTap,
     this.onFavoriteTap,
     this.onShareTap,
@@ -44,12 +46,12 @@ class EventHeaderBanner extends StatelessWidget {
               bottomLeft: Radius.circular(30.r),
               bottomRight: Radius.circular(30.r),
             ),
-            child: Image.network(
-              imageUrl,
+            child: Image.asset(
+              bannerImageUrl,
               fit: BoxFit.cover,
-              errorBuilder: (_, _, _) {
+              errorBuilder: (context, error, stackTrace) {
                 return Container(
-                  color: AppColors.disabled.withValues(alpha: 0.7),
+                  color: AppColors.accentDark.withValues(alpha: 0.7),
                   child: Icon(Icons.image_not_supported, size: 60.sp),
                 );
               },
@@ -141,14 +143,17 @@ class EventHeaderBanner extends StatelessWidget {
                     ),
                   ),
 
-                SizedBox(height: 12.h),
+                // SizedBox(height: 12.h),
 
                 //-----------------------------------
                 // Title
                 //-----------------------------------
-                Text(title, style: AppTextStyles.eventTitle),
+                Text(
+                  title,
+                  style: AppTextStyles.h2.copyWith(color: AppColors.surface),
+                ),
 
-                SizedBox(height: 10.h),
+                // SizedBox(height: 10.h),
 
                 //-----------------------------------
                 // Date
@@ -197,7 +202,7 @@ class _CircleButton extends StatelessWidget {
         height: 44.h,
         width: 44.w,
         decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: .35),
+          color: AppColors.textDark.withValues(alpha: .35),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: color, size: 22.sp),

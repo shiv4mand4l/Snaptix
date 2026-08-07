@@ -55,7 +55,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
           builder: (context, state) {
             if (state is EventDetailLoading) {
-              return const Center(child: AppLoader());
+              return AppLoader();
             }
 
             if (state is EventDetailError) {
@@ -87,6 +87,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               children: [
                                 EventHeaderBanner(
                                   imageUrl: event.bannerImageUrl,
+                                  bannerImageUrl: event.bannerImageUrl,
                                   badgeText: event.badgeText,
                                   title: event.title,
                                   dateTimeText: event.dateTimeText,
@@ -158,7 +159,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   EventLocationSection(
                                     address: event.locationSubtitle,
                                     onDirectionsTap: () {},
-                                    venueName: '',
+                                    venueName: event.locationSubtitle,
                                   ),
 
                                   SizedBox(height: 28.h),
@@ -169,7 +170,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   SimilarEventsSection(
                                     events: event.similarEvents,
 
-                                    onSeeAllTap: () {},
+                                    onSeeAllTap: () {
+                                      context.go(AppRoutes.main);
+                                    },
 
                                     onEventTap: (event) {},
 

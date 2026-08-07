@@ -15,7 +15,7 @@ class TicketsHeader extends StatelessWidget {
         SizedBox(height: 6.h),
         Text(
           'Manage your upcoming and past event\nexperiences.',
-          style: AppTextStyles.bodySmall,
+          style: AppTextStyles.bodySmall.copyWith(height: 1.2),
         ),
       ],
     );

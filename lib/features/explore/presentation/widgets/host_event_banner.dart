@@ -1,11 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_task/core/constants/app_colors.dart';
 import 'package:flutter_task/core/theme/app_theme.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
+import 'package:flutter_task/features/explore/domain/entities/banner_entity.dart';
 
 class HostEventBanner extends StatelessWidget {
-  const HostEventBanner({super.key});
+  final BannerEntity bannerEntity;
+  const HostEventBanner({super.key, required this.bannerEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class HostEventBanner extends StatelessWidget {
                 child: Icon(
                   Icons.campaign_outlined,
                   size: bannerWidth * 0.32,
-                  color: Colors.white.withValues(alpha: .12),
+                  color: AppColors.surface.withValues(alpha: .12),
                 ),
               ),
 
@@ -49,13 +53,13 @@ class HostEventBanner extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(10.r),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: .18),
+                      color: AppColors.surface.withValues(alpha: .18),
                       borderRadius: BorderRadius.circular(14.r),
                     ),
                     child: Icon(
                       Icons.edit_calendar_rounded,
-                      color: Colors.white,
-                      size: 24.sp,
+                      color: AppColors.surface,
+                      size: 18.sp,
                     ),
                   ),
 
@@ -65,10 +69,10 @@ class HostEventBanner extends StatelessWidget {
                   // Title
                   //----------------------------------------
                   Text(
-                    "Host Your Own Event",
+                    bannerEntity.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodyLarge,
+                    style: AppTextStyles.displaySmall.copyWith(fontSize: 22),
                   ),
 
                   SizedBox(height: 8.h),
@@ -77,8 +81,11 @@ class HostEventBanner extends StatelessWidget {
                   // Description
                   //----------------------------------------
                   Text(
-                    "Reach thousands of event-goers and manage your bookings seamlessly.",
-                    style: AppTextStyles.labelMedium,
+                    bannerEntity.description,
+                    style: AppTextStyles.labelMedium.copyWith(
+                      height: 1.2,
+                      fontSize: 14,
+                    ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -97,12 +104,8 @@ class HostEventBanner extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          "Create Event",
-                          style: TextStyle(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.sp,
-                          ),
+                          bannerEntity.buttonText,
+                          style: AppTextStyles.h2,
                         ),
                       ),
                     ),

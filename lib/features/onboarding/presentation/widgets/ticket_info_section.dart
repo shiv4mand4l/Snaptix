@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_task/core/constants/app_colors.dart';
+import 'package:flutter_task/core/theme/text_styles.dart';
 
 class TicketInfoSection extends StatelessWidget {
   const TicketInfoSection({super.key});
@@ -18,22 +19,13 @@ class TicketInfoSection extends StatelessWidget {
               children: [
                 Text(
                   'Section',
-                  style: TextStyle(
+                  style: AppTextStyles.caption.copyWith(
                     color: const Color(0xFF8E94A3),
                     fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: 4.h),
-                Text(
-                  'VIP Floor',
-                  style: TextStyle(
-                    color: const Color(0xFF151828),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'serif',
-                  ),
-                ),
+                Text('VIP Floor', style: AppTextStyles.h4),
               ],
             ),
           ),
@@ -50,22 +42,13 @@ class TicketInfoSection extends StatelessWidget {
               children: [
                 Text(
                   'Entry Gate',
-                  style: TextStyle(
+                  style: AppTextStyles.caption.copyWith(
                     color: const Color(0xFF8E94A3),
                     fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: 4.h),
-                Text(
-                  'West-04',
-                  style: TextStyle(
-                    color: const Color(0xFF151828),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'serif',
-                  ),
-                ),
+                Text('West-04', style: AppTextStyles.h4),
               ],
             ),
           ),

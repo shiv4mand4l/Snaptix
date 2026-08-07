@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/core/routes/app_routes.dart';
 import 'package:flutter_task/core/theme/app_theme.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
 import 'package:flutter_task/features/saved/domain/entities/saved_event_entities.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../bloc/saved_event_bloc.dart';
@@ -43,18 +45,19 @@ class EventCardCompact extends StatelessWidget {
                   topLeft: Radius.circular(24.r),
                   topRight: Radius.circular(24.r),
                 ),
-                child: Image.network(
+                child: Image.asset(
                   savedEventEntities.imageUrl,
                   height: 180.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
+                      width: double.infinity,
                       height: 180.h,
                       color: AppColors.disabled,
                       child: Icon(
                         Icons.image_not_supported_outlined,
-                        color: AppColors.disabled,
+                        color: AppColors.textSecondary,
                         size: 40.sp,
                       ),
                     );
@@ -123,7 +126,7 @@ class EventCardCompact extends StatelessWidget {
                     Expanded(
                       child: Text(
                         savedEventEntities.title,
-                        // maxLines: 2,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.h4,
                       ),
@@ -203,7 +206,9 @@ class EventCardCompact extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push(AppRoutes.eventDetail);
+                    },
                     style: AppTheme.lightTheme.outlinedButtonTheme.style,
 
                     child: Text(

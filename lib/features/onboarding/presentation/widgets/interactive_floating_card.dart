@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_colors.dart';
 import 'ticket_card_content.dart';
 
 class InteractiveFloatingCard extends StatefulWidget {
@@ -81,13 +82,13 @@ class _InteractiveFloatingCardState extends State<InteractiveFloatingCard>
                 borderRadius: BorderRadius.circular(28.r),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF383CC1).withValues(alpha: 0.12),
+                    color: AppColors.primary.withValues(alpha: 0.12),
                     blurRadius: 30.r,
                     spreadRadius: 2.r,
                     offset: Offset(0, 15.h),
                   ),
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
+                    color: AppColors.textDark.withValues(alpha: 0.08),
                     blurRadius: 15.r,
                     offset: Offset(0, 8.h),
                   ),

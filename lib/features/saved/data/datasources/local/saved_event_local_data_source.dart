@@ -12,8 +12,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '1',
       title: 'Neon Horizon Festival',
       category: 'Concerts',
-      imageUrl:
-          'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Neon Horizon Festival.jpg',
       dates: 'Aug 14–16, 2024',
       time: '06:00 PM',
       location: 'Central Plaza',
@@ -26,8 +25,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '2',
       title: 'UI/UX Masterclass 2024',
       category: 'Workshops',
-      imageUrl:
-          'https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/UI-Ux.jpg',
       dates: 'Tomorrow',
       time: '10:00 AM',
       location: 'Tech Hub Downtown',
@@ -40,8 +38,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '3',
       title: 'Midnight Jazz Sessions',
       category: 'Concerts',
-      imageUrl:
-          'https://images.unsplash.com/photo-1511192336575-5a79af67a629?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Midnight Jazz Sessions.jpg',
       dates: 'Sat, Jul 20',
       time: '09:00 PM',
       location: 'Blue Note Lounge',
@@ -54,8 +51,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '4',
       title: 'Creative Coding Workshop',
       category: 'Workshops',
-      imageUrl:
-          'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Creative Coding Workshop.jpg',
       dates: 'Aug 22, 2024',
       time: '02:00 PM',
       location: 'Innovate Lab',
@@ -68,8 +64,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '5',
       title: 'Rock the Park 2024',
       category: 'Concerts',
-      imageUrl:
-          'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Rock the Park 2024.jpg',
       dates: 'Sep 05, 2024',
       time: '05:00 PM',
       location: 'City Amphitheater',
@@ -82,8 +77,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '6',
       title: 'Product Design Sprint',
       category: 'Workshops',
-      imageUrl:
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Product Design Sprint.jpg',
       dates: 'Sep 12–14, 2024',
       time: '09:00 AM',
       location: 'Design Studio 101',
@@ -96,8 +90,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '7',
       title: 'Acoustic Guitar Night',
       category: 'Concerts',
-      imageUrl:
-          'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Acoustic Guitar Night.jpg',
       dates: 'Sep 18, 2024',
       time: '08:00 PM',
       location: 'The Coffee House',
@@ -110,8 +103,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '8',
       title: 'Global Tech Conference',
       category: 'Workshops',
-      imageUrl:
-          'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Global Tech Conference.jpg',
       dates: 'Oct 02–04, 2024',
       time: '08:00 AM',
       location: 'Convention Center',
@@ -124,8 +116,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '9',
       title: 'Indie Pop Showcase',
       category: 'Concerts',
-      imageUrl:
-          'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Indie Pop Showcase.jpg',
       dates: 'Oct 10, 2024',
       time: '07:30 PM',
       location: 'Underground Lounge',
@@ -138,8 +129,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '10',
       title: 'Advanced Flutter Bootcamp',
       category: 'Workshops',
-      imageUrl:
-          'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Advanced Flutter Bootcamp.jpg',
       dates: 'Oct 15–17, 2024',
       time: '10:00 AM',
       location: 'Online Workshop',
@@ -152,8 +142,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '11',
       title: 'Symphony Under the Stars',
       category: 'Concerts',
-      imageUrl:
-          'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Symphony Under the Stars.jpg',
       dates: 'Oct 24, 2024',
       time: '07:00 PM',
       location: 'Botanical Gardens',
@@ -166,8 +155,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       id: '12',
       title: 'Agile & Scrum Essentials',
       category: 'Workshops',
-      imageUrl:
-          'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop',
+      imageUrl: 'assets/images/Agile & Scrum Essentials.jpg',
       dates: 'Nov 02, 2024',
       time: '09:00 AM',
       location: 'Corporate Suite B',
@@ -182,7 +170,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
 
   @override
   Future<List<SavedEventModel>> getSavedEvents() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    // await Future.delayed(const Duration(milliseconds: 500));
 
     return _events.where((event) => event.isSaved).toList();
   }

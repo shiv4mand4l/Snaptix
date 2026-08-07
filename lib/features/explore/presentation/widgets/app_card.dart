@@ -1,15 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:flutter_task/core/constants/app_colors.dart';
 import 'package:flutter_task/core/routes/app_routes.dart';
 import 'package:flutter_task/core/theme/app_theme.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_task/features/explore/domain/entities/event_entity.dart';
 
 class AppCard extends StatelessWidget {
-  const AppCard({super.key});
+  final EventEntity eventEntity;
+  const AppCard({super.key, required this.eventEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +24,16 @@ class AppCard extends StatelessWidget {
           // Background Image
           //-----------------------------------
           Positioned.fill(
-            child: Image.network(
-              'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800',
+            child: Image.asset(
+              eventEntity.imageUrl,
               fit: BoxFit.cover,
               errorBuilder: (_, _, _) {
                 return Container(
-                  color: Colors.grey.shade300,
+                  color: AppColors.disabled,
                   child: Icon(
                     Icons.image_not_supported,
                     size: 50.sp,
-                    color: Colors.grey,
+                    color: AppColors.textSecondary,
                   ),
                 );
               },
@@ -81,7 +82,10 @@ class AppCard extends StatelessWidget {
                       color: AppColors.accentDark.withValues(alpha: .9),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
-                    child: Text("\$89.00", style: AppTextStyles.ticketPrice),
+                    child: Text(
+                      "\$${eventEntity.price}",
+                      style: AppTextStyles.ticketPrice,
+                    ),
                   ),
                 ),
 
@@ -102,25 +106,28 @@ class AppCard extends StatelessWidget {
 
                     Expanded(
                       child: Text(
-                        "OCT 24, 2024 • 8:00 PM",
+                        "${eventEntity.date} • ${eventEntity.time}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.eventDate,
+                        style: AppTextStyles.eventDate.copyWith(fontSize: 12),
                       ),
                     ),
                   ],
                 ),
 
-                SizedBox(height: 8.h),
+                SizedBox(height: 4.h),
 
                 //-----------------------------------
                 // Title
                 //-----------------------------------
                 Text(
-                  "Neon Snaptix: Underground Rave",
+                  eventEntity.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.eventTitle,
+                  style: AppTextStyles.eventTitle.copyWith(
+                    fontSize: 22,
+                    height: 1.2,
+                  ),
                 ),
 
                 SizedBox(height: 8.h),
@@ -133,17 +140,17 @@ class AppCard extends StatelessWidget {
                     Icon(
                       Icons.location_on_outlined,
                       color: AppColors.divider,
-                      size: 14.sp,
+                      size: 12.sp,
                     ),
 
                     SizedBox(width: 6.w),
 
                     Expanded(
                       child: Text(
-                        "The Warehouse District, NY",
+                        eventEntity.location,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.eventDate,
+                        style: AppTextStyles.eventDate.copyWith(fontSize: 12),
                       ),
                     ),
                   ],
@@ -156,10 +163,9 @@ class AppCard extends StatelessWidget {
                 //-----------------------------------
                 SizedBox(
                   width: double.infinity,
-                  height: 50.h,
+                  height: 48.h,
                   child: ElevatedButton(
                     onPressed: () {
-                      log("Book Ticket");
                       context.push(AppRoutes.eventDetail);
                     },
                     style: AppTheme.lightTheme.elevatedButtonTheme.style,
@@ -173,7 +179,7 @@ class AppCard extends StatelessWidget {
                           Icon(
                             Icons.arrow_forward_rounded,
                             color: AppColors.surface,
-                            size: 18.sp,
+                            size: 16.sp,
                           ),
                         ],
                       ),

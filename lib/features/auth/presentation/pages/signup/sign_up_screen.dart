@@ -76,7 +76,7 @@ class SignUpScreen extends StatelessWidget {
                   hintText: 'Full Name',
                 ),
 
-                SizedBox(height: 15.h),
+                SizedBox(height: 14.h),
 
                 // ---------------------------
                 // Email
@@ -86,7 +86,7 @@ class SignUpScreen extends StatelessWidget {
                   hintText: 'Email',
                 ),
 
-                SizedBox(height: 15.h),
+                SizedBox(height: 14.h),
 
                 // ---------------------------
                 // Password
@@ -99,7 +99,7 @@ class SignUpScreen extends StatelessWidget {
                   onSuffixTap: () {},
                 ),
 
-                SizedBox(height: 15.h),
+                SizedBox(height: 14.h),
 
                 // ---------------------------
                 // Confirm Password
@@ -118,9 +118,14 @@ class SignUpScreen extends StatelessWidget {
                 // ---------------------------
                 // Sign Up
                 // ---------------------------
-                AuthPrimaryButton(text: 'Create Account', onPressed: () {}),
+                AuthPrimaryButton(
+                  text: 'Create Account',
+                  onPressed: () {
+                    context.go(AppRoutes.main);
+                  },
+                ),
 
-                SizedBox(height: 30.h),
+                SizedBox(height: 35.h),
 
                 // ---------------------------
                 // Sign In
@@ -136,17 +141,12 @@ class SignUpScreen extends StatelessWidget {
                         text: TextSpan(
                           text: "Already have an account? ",
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.textSecondary,
                             fontSize: 13.sp,
                           ),
                           children: [
                             TextSpan(
                               text: "Login",
-                              style: AppTextStyles.bodyExtraMedium.copyWith(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.sp,
-                              ),
+                              style: AppTextStyles.labelExtraSmall,
                             ),
                           ],
                         ),

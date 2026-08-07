@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
-import 'package:flutter_task/shared/widgets/app_loader.dart';
 
 import '../../../../core/constants/app_colors.dart';
 
@@ -19,24 +18,10 @@ class TicketCardHeader extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               // Network Image
-              Image.network(
-                'https://i.pinimg.com/736x/50/1b/28/501b2817c355831bff34d8f32779aadd.jpg',
+              Image.asset(
+                'assets/images/event discovery and booking.jpg',
 
                 fit: BoxFit.cover,
-
-                loadingBuilder:
-                    (
-                      BuildContext context,
-                      Widget child,
-                      ImageChunkEvent? loadingProgress,
-                    ) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-
-                      return const AppLoader();
-                    },
-
                 errorBuilder:
                     (
                       BuildContext context,
@@ -44,10 +29,10 @@ class TicketCardHeader extends StatelessWidget {
                       StackTrace? stackTrace,
                     ) {
                       return Container(
-                        color: Colors.grey.shade300,
+                        color: AppColors.disabled,
                         child: const Icon(
                           Icons.image_not_supported_outlined,
-                          color: Colors.grey,
+                          color: AppColors.textDark,
                         ),
                       );
                     },
@@ -61,7 +46,7 @@ class TicketCardHeader extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Color(0xFF888B9E),
+                      AppColors.disabled,
                       Color(0xFF3A3D4E),
                       Color(0xFF1E202B),
                     ],
@@ -91,25 +76,17 @@ class TicketCardHeader extends StatelessWidget {
                   ),
                   child: Text(
                     'EXCLUSIVE ACCESS',
-                    style: AppTextStyles.bodyLarge.copyWith(
-                      color: AppColors.surface,
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.8,
-                    ),
+                    style: AppTextStyles.labelExtraMedium,
                   ),
                 ),
 
-                SizedBox(height: 12.h),
+                SizedBox(height: 4.h),
 
                 Text(
                   'Neon Horizon\nFestival 2024',
-                  style: AppTextStyles.h2.copyWith(
+                  style: AppTextStyles.h3.copyWith(
                     color: AppColors.surface,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.bold,
-                    height: 1.15,
-                    fontFamily: 'serif',
+                    height: 1.2,
                   ),
                 ),
               ],

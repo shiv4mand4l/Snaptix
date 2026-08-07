@@ -21,23 +21,18 @@ class ConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ConfirmationBloc()..add(LoadBookingDetails()),
-      child: const ConfirmationScreenContent(),
-    );
-  }
-}
-
-class ConfirmationScreenContent extends StatelessWidget {
-  const ConfirmationScreenContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: SnaptixAppBarWidget(
         automaticallyImplyLeading: false,
 
-        actions: [AppBarAction(icon: Icons.share, onTap: () {})],
+        actions: [
+          AppBarAction(
+            icon: Icons.share,
+            onTap: () {
+              context.read<ConfirmationBloc>().add(SharePressed());
+            },
+          ),
+        ],
       ),
       body: BlocConsumer<ConfirmationBloc, ConfirmationState>(
         listener: (context, state) {

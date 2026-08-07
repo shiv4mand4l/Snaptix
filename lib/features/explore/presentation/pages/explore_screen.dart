@@ -15,7 +15,7 @@ import '../widgets/trending_events_section.dart';
 import '../widgets/host_event_banner.dart';
 import '../widgets/near_you_events_section.dart';
 import 'widgets/app_bar_action.dart';
-import 'widgets/near_you_event_card.dart';
+import 'widgets/notification_action_icon.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
@@ -53,50 +53,59 @@ class ExploreScreen extends StatelessWidget {
             }
 
             if (state is ExploreLoaded) {
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  final maxWidth = constraints.maxWidth > 700
-                      ? 700.0
-                      : constraints.maxWidth;
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<ExploreBloc>().add(LoadExplore());
+                },
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final maxWidth = constraints.maxWidth > 700
+                        ? 700.0
+                        : constraints.maxWidth;
 
-                  return Align(
-                    alignment: Alignment.topCenter,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: maxWidth),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.fromLTRB(
-                          20.w,
-                          12.h,
-                          20.w,
-                          100.h, // Space for FAB
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const ExploreSearchBar(),
+                    return Align(
+                      alignment: Alignment.topCenter,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: maxWidth),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.fromLTRB(
+                            20.w,
+                            12.h,
+                            20.w,
+                            100.h, // Space for FAB
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const ExploreSearchBar(),
 
-                            SizedBox(height: 16.h),
+                              SizedBox(height: 16.h),
 
-                            const CategoryChipsBar(),
+                              const CategoryChipsBar(),
 
-                            SizedBox(height: 24.h),
+                              SizedBox(height: 24.h),
 
-                            const TrendingEventsSection(),
+                              const TrendingEventsSection(),
 
-                            SizedBox(height: 24.h),
+                              SizedBox(height: 24.h),
 
-                            const HostEventBanner(),
+                              HostEventBanner(
+                                bannerEntity: state.featuredBanner,
+                              ),
 
-                            SizedBox(height: 24.h),
+                              SizedBox(height: 24.h),
 
-                            const NearYouEventsSection(),
-                          ],
+                              NearYouEventsSection(
+                                nearbyEventEntity: state.nearbyEvents,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               );
             }
 

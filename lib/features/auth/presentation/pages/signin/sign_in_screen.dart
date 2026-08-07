@@ -79,7 +79,7 @@ class SigInScreen extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                       ),
 
-                      SizedBox(height: 18.h),
+                      SizedBox(height: 14.h),
 
                       // ---------------------------
                       // Password
@@ -104,22 +104,22 @@ class SigInScreen extends StatelessWidget {
                             'Forgot Password?',
                             style: AppTextStyles.caption.copyWith(
                               fontSize: 14.sp,
-                              color: AppColors.info.withValues(alpha: 0.7),
+                              color: AppColors.primary.withValues(alpha: 0.6),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ),
 
-                      SizedBox(height: 10.h),
+                      // SizedBox(height: 10.h),
 
                       // ---------------------------
                       // Login
                       // ---------------------------
                       AuthPrimaryButton(
-                        text: 'Login',
+                        text: 'Sign In',
                         onPressed: () {
-                          context.pushReplacement(AppRoutes.main);
+                          context.go(AppRoutes.main);
                         },
                       ),
 

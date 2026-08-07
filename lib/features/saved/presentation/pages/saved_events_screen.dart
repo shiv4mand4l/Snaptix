@@ -11,7 +11,7 @@ import 'package:flutter_task/features/saved/domain/entities/saved_event_entities
 import 'package:flutter_task/shared/widgets/app_loader.dart';
 import 'package:flutter_task/shared/widgets/snaptix_app_bar_widget.dart';
 
-import '../../../explore/presentation/pages/widgets/near_you_event_card.dart';
+import '../../../explore/presentation/pages/widgets/notification_action_icon.dart';
 import '../bloc/saved_event_bloc.dart';
 import '../bloc/saved_event_event.dart';
 import '../bloc/saved_event_state.dart';
@@ -61,26 +61,29 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
                       maxWidth: isTablet ? 900.w : double.infinity,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24.h),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12.h,
+                        horizontal: 3.w,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// Header
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Saved Events',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineMedium,
+                                  style: AppTextStyles.ticketTitle,
                                 ),
                                 SizedBox(height: 6.h),
                                 Text(
-                                  'Your personal curated list of upcoming experiences.',
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  'Your curated list of upcoming experiences, events, and activities. Discover what’s next.',
+                                  style: AppTextStyles.bodySmall.copyWith(
+                                    height: 1.2,
+                                  ),
                                 ),
                               ],
                             ),
@@ -112,17 +115,15 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
                               children: [
                                 Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: AppColors.primary,
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.7,
+                                  ),
                                   size: 28.sp,
                                 ),
                                 SizedBox(height: 6.h),
                                 Text(
                                   'Viewing ${state.filteredEvents.length} of ${state.allEvents.length} saved events',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textSecondary,
-                                  ),
+                                  style: AppTextStyles.caption,
                                 ),
                               ],
                             ),
@@ -135,34 +136,36 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
               ),
             );
           } else if (state is SavedEventsError) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.all(24.r),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      color: AppColors.error,
-                      size: 64.sp,
-                    ),
-                    SizedBox(height: 16.h),
-                    Text(
-                      state.message,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16.sp),
-                    ),
-                    SizedBox(height: 20.h),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<SavedEventsBloc>().add(LoadSavedEvents());
-                      },
-                      child: const Text('Try Again'),
-                    ),
-                  ],
-                ),
-              ),
-            );
+            return AppLoader();
+
+            // Center(
+            //   child: Padding(
+            //     padding: EdgeInsets.all(24.r),
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Icon(
+            //           Icons.error_outline,
+            //           color: AppColors.error,
+            //           size: 64.sp,
+            //         ),
+            //         SizedBox(height: 16.h),
+            //         Text(
+            //           state.message,
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(fontSize: 16.sp),
+            //         ),
+            //         SizedBox(height: 20.h),
+            //         ElevatedButton(
+            //           onPressed: () {
+            //             context.read<SavedEventsBloc>().add(LoadSavedEvents());
+            //           },
+            //           child: const Text('Try Again'),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // );
           }
 
           return const SizedBox.shrink();

@@ -31,7 +31,7 @@ class _EventAboutSectionState extends State<EventAboutSection> {
             //---------------------------------------
             Text("About this event", style: AppTextStyles.h4),
 
-            SizedBox(height: 12.h),
+            // SizedBox(height: 6.h),
 
             //---------------------------------------
             // Description
@@ -51,7 +51,10 @@ class _EventAboutSectionState extends State<EventAboutSection> {
                   widget.description,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.eventLocation.copyWith(height: 1.6),
+                  style: AppTextStyles.caption.copyWith(
+                    height: 1.4,
+                    fontSize: 14,
+                  ),
                 ),
               ),
 
@@ -59,12 +62,15 @@ class _EventAboutSectionState extends State<EventAboutSection> {
                 width: double.infinity,
                 child: Text(
                   widget.description,
-                  style: AppTextStyles.eventLocation.copyWith(height: 1.6),
+                  style: AppTextStyles.caption.copyWith(
+                    height: 1.4,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
 
-            SizedBox(height: 12.h),
+            // SizedBox(height: 12.h),
 
             //---------------------------------------
             // Read More

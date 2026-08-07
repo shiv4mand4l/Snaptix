@@ -43,7 +43,7 @@ class EventDetailLoaded extends EventDetailState {
 class EventDetailError extends EventDetailState {
   final String message;
 
-  const EventDetailError(this.message);
+  const EventDetailError({required this.message});
 
   @override
   List<Object?> get props => [message];

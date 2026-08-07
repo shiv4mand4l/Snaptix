@@ -35,7 +35,10 @@ class TicketStatusBadge extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(16.r),
       ),
-      child: Text(text, style: AppTextStyles.labelExtraMedium),
+      child: Text(
+        text,
+        style: AppTextStyles.labelExtraMedium.copyWith(fontWeight: .bold),
+      ),
     );
   }
 }

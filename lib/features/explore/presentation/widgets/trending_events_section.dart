@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_task/core/routes/app_routes.dart';
-import 'package:flutter_task/shared/widgets/app_card.dart';
+import 'package:flutter_task/core/theme/text_styles.dart';
+import 'package:flutter_task/features/explore/presentation/bloc/explore_bloc.dart';
+import 'package:flutter_task/features/explore/presentation/widgets/app_card.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/theme/text_styles.dart';
 
 class TrendingEventsSection extends StatelessWidget {
   const TrendingEventsSection({super.key});
@@ -13,7 +14,6 @@ class TrendingEventsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
 
-    // Responsive card width
     final cardWidth = screenWidth < 600
         ? screenWidth * 0.75
         : screenWidth * 0.42;
@@ -44,7 +44,7 @@ class TrendingEventsSection extends StatelessWidget {
               onPressed: () {
                 context.push(AppRoutes.ticket);
               },
-              child: Text("View All", style: AppTextStyles.bodyMedium),
+              child: Text("View All", style: AppTextStyles.bodyExtraSmall),
             ),
           ],
         ),
@@ -52,20 +52,58 @@ class TrendingEventsSection extends StatelessWidget {
         SizedBox(height: 14.h),
 
         //---------------------------------------
-        // Cards
+        // BLoC Data
         //---------------------------------------
-        SizedBox(
-          height: 0.48.sh,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 2.w),
-            itemCount: 4,
-            separatorBuilder: (_, _) => SizedBox(width: 16.w),
-            itemBuilder: (_, index) {
-              return SizedBox(width: cardWidth, child: const AppCard());
-            },
-          ),
+        BlocBuilder<ExploreBloc, ExploreState>(
+          builder: (context, state) {
+            // Loading
+            if (state is IsLoadingExplore) {
+              return const SizedBox(
+                height: 250,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            // Error
+            if (state is ErrorExplore) {
+              return SizedBox(
+                height: 250,
+                child: Center(child: Text(state.message)),
+              );
+            }
+
+            // Loaded
+            if (state is ExploreLoaded) {
+              final events = state.trendingEvents;
+
+              if (events.isEmpty) {
+                return const SizedBox(
+                  height: 250,
+                  child: Center(child: Text('No trending events found')),
+                );
+              }
+
+              return SizedBox(
+                height: 0.45.sh,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: events.length,
+                  separatorBuilder: (_, _) => SizedBox(width: 16.w),
+                  itemBuilder: (context, index) {
+                    final event = events[index];
+
+                    return SizedBox(
+                      width: cardWidth,
+                      child: AppCard(eventEntity: event),
+                    );
+                  },
+                ),
+              );
+            }
+
+            return const SizedBox.shrink();
+          },
         ),
       ],
     );

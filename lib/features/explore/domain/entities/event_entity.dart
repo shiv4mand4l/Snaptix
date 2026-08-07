@@ -1,4 +1,3 @@
-// domain/entities/event_entity.dart
 import 'package:equatable/equatable.dart';
 
 class EventEntity extends Equatable {

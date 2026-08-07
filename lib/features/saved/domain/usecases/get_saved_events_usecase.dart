@@ -1,17 +1,3 @@
-// import 'package:flutter_task/features/saved/domain/entities/saved_event_entities.dart';
-
-// import '../repositories/event_repository.dart';
-
-// class GetSavedEventsUsecase {
-//   final SavedEventRepository repository;
-
-//   GetSavedEventsUsecase(this.repository);
-
-//   Future<List<SavedEventEntities>> call() async{
-//     return await repository.getSavedEvents();
-//   }
-// }
-
 import '../entities/saved_event_entities.dart';
 import '../repositories/saved_event_repository.dart';
 

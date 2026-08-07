@@ -16,7 +16,7 @@ class TicketCardContent extends StatelessWidget {
       borderRadius: BorderRadius.circular(28.r),
       child: Container(
         width: double.infinity,
-        color: Colors.white,
+        color: AppColors.background,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

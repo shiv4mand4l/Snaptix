@@ -71,7 +71,7 @@ class SavedEventsBloc extends Bloc<SavedEventsEvent, SavedEventsState> {
     try {
       await toggleSavedEventUsecase(event.eventId);
 
-      add(LoadSavedEvents());
+      // add(LoadSavedEvents());
     } catch (e) {
       emit(SavedEventsError(message: e.toString()));
     }
