@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_task/core/constants/app_colors.dart';
 import 'package:flutter_task/core/theme/text_styles.dart';
+
 import '../../data/models/booking_confirmation_model.dart';
 import 'ticket_card_cliper.dart';
 import 'ticket_cutout_divider.dart';
@@ -13,175 +15,167 @@ class TicketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dynamic values for responsiveness and clipping coordinates
-    final double cardWidth = 327.w;
-    // We position the cutout dynamically so layout doesn't break
-    final double cutoutTop = 310.h;
-    final double cutoutRadius = 12.r;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+
+    final cardWidth = screenWidth >= 600 ? 430.w : screenWidth - 32.w;
+
+    final imageHeight = screenWidth < 340
+        ? 155.h
+        : screenWidth < 380
+        ? 170.h
+        : 180.h;
+
+    final infoHeight = screenWidth < 340 ? 145.h : 155.h;
+
+    final cutoutRadius = screenWidth < 340 ? 10.r : 12.r;
+
+    final cutoutTop = imageHeight + infoHeight;
 
     return Center(
-      child: Stack(
-        children: [
-          // Shadow and Background via PhysicalShape
-          PhysicalShape(
-            clipper: TicketCardClipper(
-              cutoutTop: cutoutTop,
-              cutoutRadius: cutoutRadius,
-              borderRadius: 20.r,
-            ),
-            elevation: 8.0,
-            shadowColor: AppColors.textPrimary.withValues(alpha: 0.04),
-            color: AppColors.surface,
-            child: SizedBox(
-              width: cardWidth,
+      child: SizedBox(
+        width: cardWidth,
+        child: Stack(
+          children: [
+            PhysicalShape(
+              clipper: TicketCardClipper(
+                cutoutTop: cutoutTop,
+                cutoutRadius: cutoutRadius,
+                borderRadius: 20.r,
+              ),
+              elevation: 7,
+              shadowColor: AppColors.textPrimary.withValues(alpha: 0.06),
+              color: AppColors.surface,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // 1. Hero Event Image
-                  _buildEventHeader(),
+                  _buildEventHeader(imageHeight: imageHeight),
 
-                  // 2. Event Date, Time, Location Info
-                  _buildEventInfo(),
+                  _buildEventInfo(height: infoHeight),
 
-                  // 3. Spacing for cutout divider
                   SizedBox(height: cutoutRadius * 2),
 
-                  // 4. QR and ID Section
                   _buildQrSection(),
                 ],
               ),
             ),
-          ),
 
-          // Dashed Cutout Line Overlay (Positioned exactly at the cutout center)
-          Positioned(
-            left: cutoutRadius,
-            right: cutoutRadius,
-            top: cutoutTop - 0.5.h, // Centered horizontally
-            child: TicketCutoutDivider(
-              height: 1.5.h,
-              dashWidth: 6.w,
-              dashSpace: 4.w,
-              color: AppColors.divider,
+            Positioned(
+              left: cutoutRadius,
+              right: cutoutRadius,
+              top: cutoutTop - 0.5.h,
+              child: TicketCutoutDivider(
+                height: 1.5.h,
+                dashWidth: 6.w,
+                dashSpace: 4.w,
+                color: AppColors.divider,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  // --- Header Image overlay widget ---
-  Widget _buildEventHeader() {
+  // ============================================================
+  // EVENT HEADER
+  // ============================================================
+
+  Widget _buildEventHeader({required double imageHeight}) {
     return ClipRRect(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20.r),
         topRight: Radius.circular(20.r),
       ),
-      child: Container(
-        height: 180.h,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.textPrimary.withValues(alpha: 0.4),
-              AppColors.textDark.withValues(alpha: .02),
-              AppColors.textPrimary.withValues(alpha: 0.4),
-            ],
-          ),
-        ),
+      child: SizedBox(
+        height: imageHeight,
         child: Stack(
           children: [
-            // Decorative background patterns mimicking neon festival light lines
             Positioned.fill(
               child: CustomPaint(painter: HeaderBackgroundLinesPainter()),
             ),
 
-            // Actual premium network image for realism
             Positioned.fill(
               child: Image.asset(
                 'assets/images/Indie Rock Concert.jpg',
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  // Muted fallback showing glowing gradients
-                  return Container();
+                errorBuilder: (_, _, _) {
+                  return Container(color: AppColors.disabled);
                 },
-                // loadingBuilder: (context, child, loadingProgress) {
-                //   if (loadingProgress == null) return child;
-                //   return const Center(child: AppLoader());
-                // },
               ),
             ),
 
-            // Muted overlay for better text contrast
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    AppColors.textDark.withValues(alpha: 0.2),
-                    AppColors.textDark.withValues(alpha: 0.7),
-                  ],
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      AppColors.textDark.withValues(alpha: 0.15),
+                      AppColors.textDark.withValues(alpha: 0.75),
+                    ],
+                  ),
                 ),
               ),
             ),
 
-            // Mini Success Thumbnail Card (Top-Left)
+            // SUCCESS BADGE
             Positioned(
               top: 12.h,
               left: 12.w,
-              child: Container(
-                width: 140.w,
-                padding: EdgeInsets.all(8.r),
-                decoration: BoxDecoration(
-                  color: AppColors.surface.withValues(alpha: 0.85),
-                  borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(
-                    color: AppColors.surface.withValues(alpha: 0.5),
-                    width: 1.w,
+              right: 12.w,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 145.w),
+                  padding: EdgeInsets.all(7.r),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface.withValues(alpha: 0.85),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(3.r),
-                      decoration: const BoxDecoration(
-                        color: AppColors.border,
-                        shape: BoxShape.circle,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(3.r),
+                        decoration: const BoxDecoration(
+                          color: AppColors.border,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.check_circle,
+                          color: AppColors.primary,
+                          size: 14.sp,
+                        ),
                       ),
-                      child: Icon(
-                        Icons.check_circle,
-                        color: AppColors.primary,
-                        size: 14.sp,
+                      SizedBox(width: 6.w),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Success!',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.extraSmallCaption,
+                            ),
+                            Text(
+                              bookingDetails.eventName,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.extraSmallCaption2,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 6.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Success!',
-                            style: AppTextStyles.extraSmallCaption,
-                          ),
-                          Text(
-                            'Neon Pulse 2024',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.extraSmallCaption2,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
 
-            // Bottom Labels (Badge and Title)
+            // BOTTOM EVENT INFO
             Positioned(
               left: 16.w,
               right: 16.w,
@@ -200,15 +194,21 @@ class TicketCard extends StatelessWidget {
                     ),
                     child: Text(
                       bookingDetails.ticketType.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.labelExtraMedium.copyWith(
-                        fontWeight: .bold,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  // SizedBox(height: 6.h),
+
+                  SizedBox(height: 4.h),
+
                   Text(
                     bookingDetails.eventName,
-                    style: AppTextStyles.eventTitle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.eventTitle.copyWith(fontSize: 18.sp),
                   ),
                 ],
               ),
@@ -219,115 +219,139 @@ class TicketCard extends StatelessWidget {
     );
   }
 
-  // --- Middle Info Section ---
-  Widget _buildEventInfo() {
-    return Padding(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Date
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('DATE', style: AppTextStyles.caption),
-                    SizedBox(height: 4.h),
-                    Text(
-                      bookingDetails.eventDate,
-                      style: AppTextStyles.liveEventDateConfirm,
-                    ),
-                  ],
+  // ============================================================
+  // EVENT INFO
+  // ============================================================
+
+  Widget _buildEventInfo({required double height}) {
+    return SizedBox(
+      height: height,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 10.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: _infoItem(
+                    title: 'DATE',
+                    value: bookingDetails.eventDate,
+                  ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              // Time
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('TIME', style: AppTextStyles.caption),
-                    SizedBox(height: 4.h),
-                    Text(
-                      bookingDetails.eventTime,
-                      style: AppTextStyles.liveEventDateConfirm,
-                    ),
-                  ],
+
+                SizedBox(width: 12.w),
+
+                Expanded(
+                  child: _infoItem(
+                    title: 'TIME',
+                    value: bookingDetails.eventTime,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          // Location
-          Text('LOCATION', style: AppTextStyles.caption),
-          SizedBox(height: 4.h),
-          Row(
-            children: [
-              Icon(
-                Icons.location_on_rounded,
-                color: AppColors.primary,
-                size: 14.sp,
-              ),
-              SizedBox(width: 6.w),
-              Expanded(
-                child: Text(
-                  bookingDetails.eventLocation,
-                  style: AppTextStyles.ticketNumber,
+              ],
+            ),
+
+            SizedBox(height: 12.h),
+
+            Text('LOCATION', style: AppTextStyles.caption),
+
+            SizedBox(height: 3.h),
+
+            Row(
+              children: [
+                Icon(
+                  Icons.location_on_rounded,
+                  color: AppColors.primary,
+                  size: 14.sp,
                 ),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(width: 6.w),
+                Expanded(
+                  child: Text(
+                    bookingDetails.eventLocation,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.ticketNumber,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // --- Bottom QR Section ---
+  Widget _infoItem({required String title, required String value}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: AppTextStyles.caption,
+        ),
+        SizedBox(height: 3.h),
+        Text(
+          value,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: AppTextStyles.liveEventDateConfirm,
+        ),
+      ],
+    );
+  }
+
+  // ============================================================
+  // QR SECTION
+  // ============================================================
+
   Widget _buildQrSection() {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
+      padding: EdgeInsets.fromLTRB(20.w, 4.h, 20.w, 20.h),
       child: Column(
         children: [
-          // QR Code Graphic Inside Card
-          Column(
-            children: [
-              Container(
-                padding: .all(20.r),
-                decoration: BoxDecoration(
-                  color: AppColors.textPrimary.withValues(alpha: 0.002),
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: Container(
-                  padding: EdgeInsets.all(30.r),
-                  decoration: BoxDecoration(
-                    color: AppColors.textPrimary,
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: Icon(
-                    Icons.qr_code_scanner_outlined,
-                    size: 100.sp,
-                    color: AppColors.surface,
-                  ),
-                ),
+          Container(
+            padding: EdgeInsets.all(12.r),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(14.r),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Container(
+              width: 150.w,
+              height: 150.w,
+              constraints: BoxConstraints(maxWidth: 160.w, maxHeight: 160.w),
+              decoration: BoxDecoration(
+                color: AppColors.textPrimary,
+                borderRadius: BorderRadius.circular(12.r),
               ),
-            ],
+              child: Icon(
+                Icons.qr_code_2_rounded,
+                size: 105.sp,
+                color: AppColors.surface,
+              ),
+            ),
           ),
 
-          SizedBox(height: 16.h),
-          // Booking ID
+          SizedBox(height: 12.h),
+
           Text(
             'Booking ID: #${bookingDetails.bookingId}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: AppTextStyles.labelSmall,
           ),
-          SizedBox(height: 6.h),
-          // Ticket count and admit info
+
+          SizedBox(height: 5.h),
+
           Text(
             '${bookingDetails.ticketCount} TICKETS • ADMIT ONE PER QR',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: AppTextStyles.bodyExtraSmall,
           ),
         ],
@@ -336,7 +360,10 @@ class TicketCard extends StatelessWidget {
   }
 }
 
-// Custom Painter to draw cool glowing lines on the image fallback
+// ============================================================
+// BACKGROUND PAINTER
+// ============================================================
+
 class HeaderBackgroundLinesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -346,28 +373,35 @@ class HeaderBackgroundLinesPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     final path = Path();
+
     for (double i = -size.width; i < size.width * 2; i += 40) {
       path.moveTo(i, 0);
       path.lineTo(i + size.height, size.height);
     }
+
     canvas.drawPath(path, paint);
 
     final paintAccent = Paint()
       ..color = AppColors.info.withValues(alpha: 0.1)
-      ..strokeWidth = 2.0
+      ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
     final pathAccent = Path();
+
     pathAccent.moveTo(0, size.height * 0.7);
+
     pathAccent.quadraticBezierTo(
       size.width * 0.4,
       size.height * 0.3,
       size.width,
       size.height * 0.9,
     );
+
     canvas.drawPath(pathAccent, paintAccent);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
 }

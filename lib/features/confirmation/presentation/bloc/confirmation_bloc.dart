@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../data/models/booking_confirmation_model.dart';
 import 'confirmation_event.dart';
 import 'confirmation_state.dart';
@@ -14,14 +15,17 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     on<SharePressed>(_onSharePressed);
     on<ReturnToHomePressed>(_onReturnToHomePressed);
   }
-  void _onLoadBookingDetails(
+
+  Future<void> _onLoadBookingDetails(
     LoadBookingDetails event,
     Emitter<ConfirmationState> emit,
   ) async {
     log('🔵 LoadConfirmation started');
+
     emit(ConfirmationLoading());
-    // Simulate minor loading delay for realistic premium feel
+
     await Future.delayed(const Duration(milliseconds: 600));
+
     emit(ConfirmationLoaded(BookingConfirmationModel.mock()));
   }
 
@@ -30,10 +34,12 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     Emitter<ConfirmationState> emit,
   ) {
     final currentState = state;
+
     if (currentState is ConfirmationLoaded) {
       emit(
         ConfirmationActionSuccess('View Tickets', currentState.bookingDetails),
       );
+
       emit(ConfirmationLoaded(currentState.bookingDetails));
     }
   }
@@ -43,6 +49,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     Emitter<ConfirmationState> emit,
   ) {
     final currentState = state;
+
     if (currentState is ConfirmationLoaded) {
       emit(
         ConfirmationActionSuccess(
@@ -50,6 +57,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
           currentState.bookingDetails,
         ),
       );
+
       emit(ConfirmationLoaded(currentState.bookingDetails));
     }
   }
@@ -59,6 +67,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     Emitter<ConfirmationState> emit,
   ) {
     final currentState = state;
+
     if (currentState is ConfirmationLoaded) {
       emit(
         ConfirmationActionSuccess(
@@ -66,12 +75,14 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
           currentState.bookingDetails,
         ),
       );
+
       emit(ConfirmationLoaded(currentState.bookingDetails));
     }
   }
 
   void _onSharePressed(SharePressed event, Emitter<ConfirmationState> emit) {
     final currentState = state;
+
     if (currentState is ConfirmationLoaded) {
       emit(
         ConfirmationActionSuccess(
@@ -79,6 +90,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
           currentState.bookingDetails,
         ),
       );
+
       emit(ConfirmationLoaded(currentState.bookingDetails));
     }
   }
@@ -88,6 +100,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     Emitter<ConfirmationState> emit,
   ) {
     final currentState = state;
+
     if (currentState is ConfirmationLoaded) {
       emit(
         ConfirmationActionSuccess(
@@ -95,6 +108,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
           currentState.bookingDetails,
         ),
       );
+
       emit(ConfirmationLoaded(currentState.bookingDetails));
     }
   }

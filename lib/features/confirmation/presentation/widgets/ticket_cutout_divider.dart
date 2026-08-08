@@ -10,10 +10,10 @@ class TicketCutoutDivider extends StatelessWidget {
 
   const TicketCutoutDivider({
     super.key,
-    this.height = 1.0,
+    this.height = 1,
     this.color = AppColors.surface,
-    this.dashWidth = 5.0,
-    this.dashSpace = 5.0,
+    this.dashWidth = 5,
+    this.dashSpace = 5,
   });
 
   @override
@@ -22,16 +22,23 @@ class TicketCutoutDivider extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
 
-        final count = (width / (dashWidth + dashSpace)).floor();
+        if (width <= 0) {
+          return const SizedBox.shrink();
+        }
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(
-            count,
-            (_) => SizedBox(
-              width: dashWidth,
-              height: height,
-              child: DecoratedBox(decoration: BoxDecoration(color: color)),
+        final count = (width / (dashWidth + dashSpace)).floor().clamp(1, 100);
+
+        return SizedBox(
+          height: height,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              count,
+              (_) => SizedBox(
+                width: dashWidth,
+                height: height,
+                child: DecoratedBox(decoration: BoxDecoration(color: color)),
+              ),
             ),
           ),
         );

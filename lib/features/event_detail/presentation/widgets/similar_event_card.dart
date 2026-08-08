@@ -21,120 +21,129 @@ class SimilarEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: SizedBox(
-        width: 220.w,
-        child: Card(
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.r),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //---------------------------------------
-              // Image
-              //---------------------------------------
-              Expanded(
-                flex: 6,
-                child: Stack(
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18.r),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // --------------------------------------------------
+            // IMAGE
+            // --------------------------------------------------
+            AspectRatio(
+              aspectRatio: 1.5,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    event.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) {
+                      return Container(
+                        color: AppColors.disabled,
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.image,
+                          size: 40.sp,
+                          color: AppColors.textSecondary,
+                        ),
+                      );
+                    },
+                  ),
+
+                  // FAVORITE
+                  Positioned(
+                    top: 10.h,
+                    right: 10.w,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: onFavoriteTap,
+                      child: CircleAvatar(
+                        radius: 16.r,
+                        backgroundColor: AppColors.surface.withValues(
+                          alpha: 0.2,
+                        ),
+                        child: Icon(
+                          event.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: event.isFavorite
+                              ? AppColors.error
+                              : AppColors.surface.withValues(alpha: 0.8),
+                          size: 20.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // --------------------------------------------------
+            // INFO
+            // --------------------------------------------------
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        event.imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, _, _) {
-                          return Container(
-                            color: AppColors.disabled,
-                            child: Icon(Icons.image, size: 40.sp),
-                          );
-                        },
+                    // CATEGORY
+                    Text(
+                      event.category,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
 
-                    Positioned(
-                      top: 10.h,
-                      right: 10.w,
-                      child: GestureDetector(
-                        onTap: onFavoriteTap,
-                        child: CircleAvatar(
-                          radius: 16.r,
-                          backgroundColor: AppColors.surface.withValues(
-                            alpha: 0.2,
-                          ),
-                          child: Icon(
-                            event.isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: event.isFavorite
-                                ? AppColors.error
-                                : AppColors.surface.withValues(alpha: 0.8),
-                            size: 20.sp,
+                    SizedBox(height: 5.h),
+
+                    // TITLE
+                    Text(
+                      event.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.h5.copyWith(
+                        fontWeight: FontWeight.w800,
+                        height: 1.2,
+                      ),
+                    ),
+
+                    SizedBox(height: 6.h),
+
+                    // DATE + LOCATION
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.calendar_today,
+                          size: 14.sp,
+                          color: AppColors.textHint,
+                        ),
+
+                        SizedBox(width: 6.w),
+
+                        Expanded(
+                          child: Text(
+                            event.dateAndLocation,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.caption,
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
               ),
-
-              //---------------------------------------
-              // Info
-              //---------------------------------------
-              Expanded(
-                flex: 5,
-                child: Padding(
-                  padding: EdgeInsets.all(12.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        event.category,
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                      SizedBox(height: 6.h),
-
-                      Text(
-                        event.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.h5.copyWith(
-                          fontWeight: FontWeight(800),
-                        ),
-                      ),
-
-                      const Spacer(),
-
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_today,
-                            size: 14.sp,
-                            color: AppColors.textHint,
-                          ),
-
-                          SizedBox(width: 6.w),
-
-                          Expanded(
-                            child: Text(
-                              event.dateAndLocation,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTextStyles.caption,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_task/core/theme/text_styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/text_styles.dart';
 
 class ConfirmationActionButtons extends StatelessWidget {
   final VoidCallback onViewTickets;
@@ -24,35 +24,43 @@ class ConfirmationActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
+
     final isSmall = width < 360;
+    final isTablet = width >= 600;
+
+    final horizontalPadding = isSmall
+        ? 4.w
+        : isTablet
+        ? 12.w
+        : 4.w;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: isSmall ? 16.w : 24.w),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Primary "View Tickets" CTA
-          GestureDetector(
-            onTap: onViewTickets,
-            child: Container(
-              height: isSmall ? 50.h : 54.h,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(14.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.3),
-                    blurRadius: 12.r,
-                    offset: Offset(0, 4.h),
-                  ),
-                ],
+          // --------------------------------------------------
+          // VIEW TICKETS
+          // --------------------------------------------------
+          SizedBox(
+            width: double.infinity,
+            height: isSmall ? 50.h : 54.h,
+            child: ElevatedButton(
+              onPressed: onViewTickets,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.surface,
+                elevation: 3,
+                shadowColor: AppColors.primary.withValues(alpha: 0.25),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14.r),
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.confirmation_number_outlined,
-                    color: Colors.white,
                     size: isSmall ? 18.sp : 20.sp,
                   ),
                   SizedBox(width: 8.w),
@@ -64,50 +72,55 @@ class ConfirmationActionButtons extends StatelessWidget {
 
           SizedBox(height: 12.h),
 
-          // Add to Wallet & Calendar
+          // --------------------------------------------------
+          // WALLET + CALENDAR
+          // --------------------------------------------------
           Row(
             children: [
               Expanded(
                 child: _buildSecondaryButton(
-                  context: context,
                   icon: Icons.wallet_outlined,
                   label: 'Add to Wallet',
                   onTap: onAddToWallet,
+                  isSmall: isSmall,
                 ),
               ),
               SizedBox(width: isSmall ? 8.w : 12.w),
               Expanded(
                 child: _buildSecondaryButton(
-                  context: context,
                   icon: Icons.calendar_today_outlined,
                   label: 'Add to Calendar',
                   onTap: onAddToCalendar,
+                  isSmall: isSmall,
                 ),
               ),
             ],
           ),
 
-          SizedBox(height: 24.h),
+          SizedBox(height: 18.h),
 
-          // Share with Friends
+          // --------------------------------------------------
+          // SHARE
+          // --------------------------------------------------
           InkWell(
             onTap: onShareWithFriends,
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(10.r),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.share_outlined,
-                    color: const Color(0xFF6C3EE8),
-                    size: isSmall ? 16.sp : 18.sp,
+                    color: AppColors.primary,
+                    size: isSmall ? 17.sp : 18.sp,
                   ),
-                  SizedBox(width: 8.w),
+                  SizedBox(width: 7.w),
                   Text(
                     'Share with Friends',
                     style: AppTextStyles.buttonText.copyWith(
-                      fontSize: isSmall ? 15.sp : 16.sp,
+                      color: AppColors.primary,
+                      fontSize: isSmall ? 14.sp : 15.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -116,23 +129,25 @@ class ConfirmationActionButtons extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 12.h),
+          SizedBox(height: 4.h),
 
-          // Return Home
+          // --------------------------------------------------
+          // RETURN HOME
+          // --------------------------------------------------
           InkWell(
             onTap: onReturnToHome,
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(10.r),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.home_outlined,
                     color: AppColors.textSecondary,
-                    size: isSmall ? 16.sp : 18.sp,
+                    size: isSmall ? 17.sp : 18.sp,
                   ),
-                  SizedBox(width: 8.w),
+                  SizedBox(width: 7.w),
                   Text(
                     'Return to Home',
                     style: GoogleFonts.plusJakartaSans(
@@ -151,30 +166,31 @@ class ConfirmationActionButtons extends StatelessWidget {
   }
 
   Widget _buildSecondaryButton({
-    required BuildContext context,
     required IconData icon,
     required String label,
     required VoidCallback onTap,
+    required bool isSmall,
   }) {
-    final width = MediaQuery.sizeOf(context).width;
-    final isSmall = width < 360;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: isSmall ? 44.h : 48.h,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2.w),
+    return SizedBox(
+      height: isSmall ? 44.h : 48.h,
+      child: OutlinedButton(
+        onPressed: onTap,
+        style: OutlinedButton.styleFrom(
+          backgroundColor: AppColors.surface,
+          foregroundColor: AppColors.textDark,
+          padding: EdgeInsets.symmetric(horizontal: isSmall ? 6.w : 10.w),
+          side: BorderSide(color: AppColors.border, width: 1.w),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
-              color: const Color(0xFF1E293B),
               size: isSmall ? 16.sp : 18.sp,
+              color: AppColors.textDark,
             ),
             SizedBox(width: 6.w),
             Flexible(
@@ -184,9 +200,9 @@ class ConfirmationActionButtons extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: isSmall ? 11.5.sp : 12.5.sp,
+                  fontSize: isSmall ? 11.sp : 12.sp,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1E293B),
+                  color: AppColors.textDark,
                 ),
               ),
             ),

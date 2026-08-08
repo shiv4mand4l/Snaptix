@@ -4,47 +4,69 @@ class TicketCardClipper extends CustomClipper<Path> {
   final double cutoutTop;
   final double cutoutRadius;
   final double borderRadius;
+
   const TicketCardClipper({
     required this.cutoutTop,
     required this.cutoutRadius,
-    this.borderRadius = 16.0,
+    this.borderRadius = 16,
   });
+
   @override
   Path getClip(Size size) {
     final path = Path();
+
     final w = size.width;
     final h = size.height;
-    // Top left starting after rounding
+
+    final safeCutoutTop = cutoutTop.clamp(
+      cutoutRadius + 10,
+      h - cutoutRadius - 10,
+    );
+
+    // Top-left
     path.moveTo(borderRadius, 0);
-    // Top edge & Top right corner
+
+    // Top
     path.lineTo(w - borderRadius, 0);
+
+    // Top-right
     path.quadraticBezierTo(w, 0, w, borderRadius);
-    // Right edge down to the cutout
-    path.lineTo(w, cutoutTop - cutoutRadius);
-    // Right cutout (inward semi-circle)
+
+    // Right side → cutout
+    path.lineTo(w, safeCutoutTop - cutoutRadius);
+
     path.arcToPoint(
-      Offset(w, cutoutTop + cutoutRadius),
+      Offset(w, safeCutoutTop + cutoutRadius),
       radius: Radius.circular(cutoutRadius),
       clockwise: false,
     );
-    // Right edge down to bottom right corner
+
+    // Right → bottom
     path.lineTo(w, h - borderRadius);
+
     path.quadraticBezierTo(w, h, w - borderRadius, h);
-    // Bottom edge & Bottom left corner
+
+    // Bottom
     path.lineTo(borderRadius, h);
+
     path.quadraticBezierTo(0, h, 0, h - borderRadius);
-    // Left edge up to the cutout
-    path.lineTo(0, cutoutTop + cutoutRadius);
-    // Left cutout (inward semi-circle)
+
+    // Left → cutout
+    path.lineTo(0, safeCutoutTop + cutoutRadius);
+
     path.arcToPoint(
-      Offset(0, cutoutTop - cutoutRadius),
+      Offset(0, safeCutoutTop - cutoutRadius),
       radius: Radius.circular(cutoutRadius),
       clockwise: false,
     );
-    // Left edge up to top left corner
+
+    // Left → top
     path.lineTo(0, borderRadius);
+
     path.quadraticBezierTo(0, 0, borderRadius, 0);
+
     path.close();
+
     return path;
   }
 

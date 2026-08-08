@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_task/core/constants/app_colors.dart';
-import 'package:flutter_task/core/theme/text_styles.dart';
+
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/text_styles.dart';
 
 class SuccessBadgeHeader extends StatelessWidget {
   final String eventName;
@@ -16,25 +17,25 @@ class SuccessBadgeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    final isSmall = width < 360;
+
+    final isVerySmall = width < 340;
+    final isSmall = width < 380;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Success Badge
         Container(
-          width: isSmall ? 72.w : 80.w,
-          height: isSmall ? 72.w : 80.w,
+          width: isVerySmall ? 68.w : 76.w,
+          height: isVerySmall ? 68.w : 76.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.success,
             boxShadow: [
               BoxShadow(
-                color: AppColors.success.withValues(alpha: 0.3),
-                blurRadius: 16.r,
-                spreadRadius: 2.r,
-                offset: Offset(0, 6.h),
+                color: AppColors.success.withValues(alpha: 0.25),
+                blurRadius: 14.r,
+                spreadRadius: 1.r,
+                offset: Offset(0, 5.h),
               ),
             ],
           ),
@@ -42,36 +43,38 @@ class SuccessBadgeHeader extends StatelessWidget {
             child: Icon(
               Icons.check_rounded,
               color: AppColors.surface,
-              size: isSmall ? 44.sp : 50.sp,
+              size: isVerySmall ? 40.sp : 46.sp,
             ),
           ),
         ),
 
-        SizedBox(height: isSmall ? 20.h : 24.h),
+        SizedBox(height: isSmall ? 16.h : 20.h),
 
-        // Title
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
           child: Text(
-            "You’re Going to $eventName!",
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.h4,
-          ),
-        ),
-
-        SizedBox(height: 8.h),
-
-        // Subtitle
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Text(
-            subtitle,
+            "You're Going to $eventName!",
             textAlign: TextAlign.center,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bodySmall,
+            style: AppTextStyles.h4.copyWith(
+              fontSize: isVerySmall ? 20.sp : 22.sp,
+            ),
+          ),
+        ),
+
+        SizedBox(height: 6.h),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          child: Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.bodySmall.copyWith(
+              fontSize: isVerySmall ? 12.sp : 13.sp,
+            ),
           ),
         ),
       ],

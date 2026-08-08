@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_task/core/routes/app_routes.dart';
-import 'package:flutter_task/core/theme/text_styles.dart';
-import 'package:flutter_task/features/explore/presentation/pages/widgets/app_bar_action.dart';
-import 'package:flutter_task/shared/widgets/app_loader.dart';
-import 'package:flutter_task/shared/widgets/snaptix_app_bar_widget.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../../../../core/theme/text_styles.dart';
+import '../../../../shared/widgets/app_loader.dart';
+import '../../../../shared/widgets/snaptix_app_bar_widget.dart';
+import '../../../explore/presentation/pages/widgets/app_bar_action.dart';
 import '../bloc/confirmation_bloc.dart';
 import '../bloc/confirmation_event.dart';
 import '../bloc/confirmation_state.dart';
@@ -24,10 +24,9 @@ class ConfirmationScreen extends StatelessWidget {
     return Scaffold(
       appBar: SnaptixAppBarWidget(
         automaticallyImplyLeading: false,
-
         actions: [
           AppBarAction(
-            icon: Icons.share,
+            icon: Icons.share_outlined,
             onTap: () {
               context.read<ConfirmationBloc>().add(SharePressed());
             },
@@ -37,104 +36,131 @@ class ConfirmationScreen extends StatelessWidget {
       body: BlocConsumer<ConfirmationBloc, ConfirmationState>(
         listener: (context, state) {
           if (state is ConfirmationActionSuccess) {
-            // Display clean premium snackbar for user action feedback
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: AppColors.textSecondary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                margin: EdgeInsets.all(16.r),
-                content: Row(
-                  children: [
-                    Icon(
-                      Icons.check_circle_rounded,
-                      color: AppColors.success,
-                      size: 20.sp,
-                    ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      state.actionName,
-                      style: AppTextStyles.labelMedium.copyWith(
-                        color: AppColors.surface,
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+                  backgroundColor: AppColors.textSecondary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  content: Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle_rounded,
+                        color: AppColors.success,
+                        size: 20.sp,
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 10.w),
+                      Expanded(
+                        child: Text(
+                          state.actionName,
+                          style: AppTextStyles.labelMedium.copyWith(
+                            color: AppColors.surface,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
           }
         },
         builder: (context, state) {
-          if (state is ConfirmationLoading || state is ConfirmationInitial) {
-            return AppLoader();
-          } else if (state is ConfirmationLoaded ||
+          if (state is ConfirmationInitial || state is ConfirmationLoading) {
+            return const AppLoader();
+          }
+
+          if (state is ConfirmationLoaded ||
               state is ConfirmationActionSuccess) {
-            // Fetch booking model from active state
             final booking = state is ConfirmationLoaded
                 ? state.bookingDetails
                 : (state as ConfirmationActionSuccess).bookingDetails;
 
             return SafeArea(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24.h),
-                  child: Column(
-                    children: [
-                      // 1. Success Message Title Section
-                      SuccessBadgeHeader(
-                        eventName: booking.eventName,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final width = constraints.maxWidth;
 
-                        // replaceFirst(
-                        //   ' Festival 2024',
-                        //   '',
-                        subtitle: booking.confirmationMessage,
-                      ),
-                      SizedBox(height: 28.h),
+                  final horizontalPadding = width < 360
+                      ? 16.w
+                      : width < 600
+                      ? 20.w
+                      : 32.w;
 
-                      // 2. Main Ticket Card
-                      TicketCard(bookingDetails: booking),
-                      SizedBox(height: 32.h),
+                  return SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.only(
+                      left: horizontalPadding,
+                      right: horizontalPadding,
+                      top: 20.h,
+                      bottom: 28.h,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // SUCCESS HEADER
+                        SuccessBadgeHeader(
+                          eventName: booking.eventName,
+                          subtitle: booking.confirmationMessage,
+                        ),
 
-                      // 3. User Actions buttons
-                      ConfirmationActionButtons(
-                        onViewTickets: () {
-                          context.read<ConfirmationBloc>().add(
-                            ViewTicketsPressed(),
-                          );
-                        },
-                        onAddToWallet: () {
-                          context.read<ConfirmationBloc>().add(
-                            AddToWalletPressed(),
-                          );
-                        },
-                        onAddToCalendar: () {
-                          context.read<ConfirmationBloc>().add(
-                            AddToCalendarPressed(),
-                          );
-                        },
-                        onShareWithFriends: () {
-                          context.read<ConfirmationBloc>().add(SharePressed());
-                        },
-                        onReturnToHome: () {
-                          context.read<ConfirmationBloc>().add(
-                            ReturnToHomePressed(),
-                          );
-                          context.go(AppRoutes.main);
-                        },
-                      ),
-                      SizedBox(height: 16.h),
-                    ],
-                  ),
-                ),
+                        SizedBox(height: 24.h),
+
+                        // TICKET
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 430.w),
+                          child: TicketCard(bookingDetails: booking),
+                        ),
+
+                        SizedBox(height: 28.h),
+
+                        // ACTION BUTTONS
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 500.w),
+                          child: ConfirmationActionButtons(
+                            onViewTickets: () {
+                              context.read<ConfirmationBloc>().add(
+                                ViewTicketsPressed(),
+                              );
+                            },
+                            onAddToWallet: () {
+                              context.read<ConfirmationBloc>().add(
+                                AddToWalletPressed(),
+                              );
+                            },
+                            onAddToCalendar: () {
+                              context.read<ConfirmationBloc>().add(
+                                AddToCalendarPressed(),
+                              );
+                            },
+                            onShareWithFriends: () {
+                              context.read<ConfirmationBloc>().add(
+                                SharePressed(),
+                              );
+                            },
+                            onReturnToHome: () {
+                              context.read<ConfirmationBloc>().add(
+                                ReturnToHomePressed(),
+                              );
+
+                              // Replace current booking flow with Main screen.
+                              context.go(AppRoutes.main);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             );
           }
 
           return Center(
-            child: Text('Something went wrong', style: AppTextStyles.nepali),
+            child: Text('Something went wrong', style: AppTextStyles.bodySmall),
           );
         },
       ),

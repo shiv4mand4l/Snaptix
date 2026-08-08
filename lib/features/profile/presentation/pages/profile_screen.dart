@@ -97,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                   // Logout
                   LogoutButton(
                     onTap: () {
-                      context.pushReplacement(AppRoutes.signIn);
+                      context.go(AppRoutes.signIn);
                     },
                   ),
 

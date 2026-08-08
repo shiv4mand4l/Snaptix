@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_colors.dart';
@@ -11,9 +10,7 @@ class SimilarEventsSection extends StatelessWidget {
   final List<SimilarEvent> events;
 
   final VoidCallback? onSeeAllTap;
-
   final ValueChanged<SimilarEvent>? onEventTap;
-
   final ValueChanged<SimilarEvent>? onFavoriteToggle;
 
   const SimilarEventsSection({
@@ -26,23 +23,57 @@ class SimilarEventsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth >= 600;
+    final isSmallPhone = screenWidth < 360;
+    final isLandscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
+
+    // --------------------------------------------------
+    // RESPONSIVE CARD WIDTH
+    // --------------------------------------------------
+    final double cardWidth;
+
+    if (isLandscape && !isTablet) {
+      cardWidth = screenWidth * 0.55;
+    } else if (isTablet) {
+      cardWidth = screenWidth * 0.45;
+    } else {
+      cardWidth = screenWidth * 0.75;
+    }
+
+    // --------------------------------------------------
+    // RESPONSIVE CARD HEIGHT
+    // --------------------------------------------------
+    final imageHeight = cardWidth / 1.5;
+
+    final listHeight = isLandscape && !isTablet
+        ? imageHeight + 125.h
+        : isTablet
+        ? imageHeight + 145.h
+        : isSmallPhone
+        ? imageHeight + 135.h
+        : imageHeight + 140.h;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //------------------------------------------
-        // Header
-        //------------------------------------------
+        // --------------------------------------------------
+        // HEADER
+        // --------------------------------------------------
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Text(
-                "Similar Events",
+                'Similar Events',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.h3,
               ),
             ),
+
+            SizedBox(width: 8.w),
 
             TextButton(
               style: TextButton.styleFrom(
@@ -56,16 +87,11 @@ class SimilarEventsSection extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.01),
-                      blurRadius: 10.r,
-                      offset: Offset(0, 4.h),
-                    ),
-                  ],
                 ),
                 child: Text(
-                  "See All",
+                  'See All',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.buttonText.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w600,
@@ -76,38 +102,41 @@ class SimilarEventsSection extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 18.h),
+        SizedBox(height: 14.h),
 
-        //------------------------------------------
-        // Empty State
-        //------------------------------------------
+        // --------------------------------------------------
+        // EMPTY STATE
+        // --------------------------------------------------
         if (events.isEmpty)
           SizedBox(
             height: 0.25.sh,
             child: Center(
-              child: Text("No Similar Events", style: AppTextStyles.bodySmall),
+              child: Text('No Similar Events', style: AppTextStyles.bodySmall),
             ),
           )
         else
-          //------------------------------------------
-          // Horizontal List
-          //------------------------------------------
+          // --------------------------------------------------
+          // HORIZONTAL LIST
+          // --------------------------------------------------
           SizedBox(
-            height: 280.h,
+            height: listHeight,
             child: ListView.separated(
-              scrollCacheExtent: ScrollCacheExtent.pixels(300),
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 2.w),
               itemCount: events.length,
-              separatorBuilder: (_, _) => SizedBox(width: 16.w),
+              separatorBuilder: (_, _) => SizedBox(width: 14.w),
               itemBuilder: (_, index) {
                 final event = events[index];
 
-                return SimilarEventCard(
-                  event: event,
-                  onTap: () => onEventTap?.call(event),
-                  onFavoriteTap: () => onFavoriteToggle?.call(event),
+                return SizedBox(
+                  width: cardWidth,
+                  height: listHeight,
+                  child: SimilarEventCard(
+                    event: event,
+                    onTap: () => onEventTap?.call(event),
+                    onFavoriteTap: () => onFavoriteToggle?.call(event),
+                  ),
                 );
               },
             ),

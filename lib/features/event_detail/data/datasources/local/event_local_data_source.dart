@@ -26,7 +26,7 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
       locationTitle: 'Kathmandu Arena',
       locationSubtitle: 'Kathmandu',
       aboutDescription:
-          'Experience an unforgettable live concert featuring top international artists. Enjoy incredible music, stunning performances, and an electrifying atmosphere.',
+          'Experience an unforgettable live concert featuring top international artists from around the world. Enjoy incredible live music, stunning performances, breathtaking visuals, and an electrifying atmosphere as talented artists come together for an extraordinary night of entertainment. Get ready to sing along, create unforgettable memories, and experience the energy of live music like never before.',
       priceText: '\$89',
       isFavorite: false,
       venueName: 'Gairi Gau - 32',

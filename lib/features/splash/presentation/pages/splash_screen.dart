@@ -19,9 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        context.go(AppRoutes.onboarding);
-      }
+      if (!mounted) return;
+
+      context.go(AppRoutes.onboarding);
     });
   }
 
@@ -30,69 +30,148 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(
-              children: [
-                const Spacer(flex: 3),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final height = constraints.maxHeight;
+              final width = constraints.maxWidth;
 
-                /// Logo
-                Container(
-                  width: 100.w,
-                  height: 100.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.surface.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(28.r),
-                    border: Border.all(color: AppColors.border, width: 1.5.w),
+              final bool isSmallHeight = height < 650;
+              final bool isTablet = width >= 600;
+
+              final double logoSize = isTablet
+                  ? 120.w
+                  : isSmallHeight
+                  ? 84.w
+                  : 100.w;
+
+              final double logoIconSize = isTablet
+                  ? 62.sp
+                  : isSmallHeight
+                  ? 44.sp
+                  : 52.sp;
+
+              final double topSpacing = isSmallHeight
+                  ? 50.h
+                  : isTablet
+                  ? 100.h
+                  : 70.h;
+
+              final double bottomSpacing = isSmallHeight
+                  ? 28.h
+                  : isTablet
+                  ? 70.h
+                  : 50.h;
+
+              return SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 60.w : 24.w,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: topSpacing),
+
+                        // --------------------------------
+                        // CENTER CONTENT
+                        // --------------------------------
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Logo
+                            Container(
+                              width: logoSize,
+                              height: logoSize,
+                              decoration: BoxDecoration(
+                                color: AppColors.surface.withValues(
+                                  alpha: 0.12,
+                                ),
+                                borderRadius: BorderRadius.circular(28.r),
+                                border: Border.all(
+                                  color: AppColors.border,
+                                  width: 1.5.w,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.qr_code_scanner_outlined,
+                                size: logoIconSize,
+                                color: AppColors.surface,
+                              ),
+                            ),
+
+                            SizedBox(height: isSmallHeight ? 14.h : 20.h),
+
+                            // App Name
+                            Text(
+                              AppStrings.appName,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.splashTitle,
+                            ),
+
+                            SizedBox(height: isSmallHeight ? 4.h : 8.h),
+
+                            // Subtitle
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: isTablet ? 500.w : 330.w,
+                              ),
+                              child: Text(
+                                AppStrings.splashTagline,
+                                textAlign: TextAlign.center,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyles.splashSubtitle,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // --------------------------------
+                        // LOADING SECTION
+                        // --------------------------------
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: isSmallHeight ? 30.h : 50.h),
+
+                            LinearProgressIndicator(
+                              minHeight: 4.h,
+                              borderRadius: BorderRadius.circular(100.r),
+                              backgroundColor: AppColors.surface.withValues(
+                                alpha: 0.24,
+                              ),
+                              valueColor: const AlwaysStoppedAnimation(
+                                AppColors.warning,
+                              ),
+                            ),
+
+                            SizedBox(height: isSmallHeight ? 12.h : 20.h),
+
+                            Text(
+                              AppStrings.splashLoading,
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.splashLoadingText,
+                            ),
+
+                            SizedBox(height: bottomSpacing),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Icon(
-                    Icons.qr_code_scanner_outlined,
-                    size: 52.sp,
-                    color: AppColors.surface,
-                  ),
                 ),
-
-                SizedBox(height: 20.h),
-
-                /// App Name
-                Text(
-                  AppStrings.appName,
-                  style: AppTextStyles.splashTitle,
-                  textAlign: TextAlign.center,
-                ),
-
-                // SizedBox(height: 8.h),
-
-                /// Subtitle
-                Text(
-                  AppStrings.splashTagline,
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.splashSubtitle,
-                ),
-
-                const Spacer(flex: 2),
-
-                /// Loading Indicator
-                LinearProgressIndicator(
-                  minHeight: 4.h,
-                  borderRadius: BorderRadius.circular(100.r),
-                  backgroundColor: AppColors.surface.withValues(alpha: 0.24),
-                  valueColor: const AlwaysStoppedAnimation(AppColors.warning),
-                ),
-
-                SizedBox(height: 20.h),
-
-                Text(
-                  AppStrings.splashLoading,
-                  style: AppTextStyles.splashLoadingText,
-                  textAlign: TextAlign.center,
-                ),
-
-                SizedBox(height: 60.h),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

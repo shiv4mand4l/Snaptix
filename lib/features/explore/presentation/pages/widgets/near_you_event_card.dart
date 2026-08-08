@@ -15,7 +15,7 @@ class NearYouEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300.w,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.background.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(24.r),
@@ -34,13 +34,13 @@ class NearYouEventCard extends StatelessWidget {
           // --------------------------------------------------
           // IMAGE + PRICE
           // --------------------------------------------------
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Image.asset(
+          AspectRatio(
+            aspectRatio: 1.8,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
                   event.imageUrl,
-                  width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
@@ -54,121 +54,134 @@ class NearYouEventCard extends StatelessWidget {
                     );
                   },
                 ),
-              ),
 
-              // PRICE
-              Positioned(
-                top: 12.h,
-                right: 12.w,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 5.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface.withValues(alpha: 0.9),
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: Text(
-                    '\$${event.price.toStringAsFixed(2)}',
-                    style: AppTextStyles.labelSmall.copyWith(
-                      color: AppColors.textDark,
+                // PRICE
+                Positioned(
+                  top: 12.h,
+                  right: 12.w,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 5.h,
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          // --------------------------------------------------
-          // DETAILS
-          // --------------------------------------------------
-          Padding(
-            padding: EdgeInsets.all(16.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // TITLE
-                Text(
-                  event.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.h5.copyWith(fontWeight: FontWeight.bold),
-                ),
-
-                SizedBox(height: 8.h),
-
-                // DATE + TIME
-                Row(
-                  children: [
-                    Icon(
-                      Icons.access_time_rounded,
-                      size: 16.sp,
-                      color: AppColors.primary,
+                    decoration: BoxDecoration(
+                      color: AppColors.surface.withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
-                    SizedBox(width: 6.w),
-                    Expanded(
-                      child: Text(
-                        '${event.date} • ${event.time}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.caption,
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 8.h),
-
-                // LOCATION
-                Row(
-                  children: [
-                    Icon(
-                      Icons.near_me_outlined,
-                      size: 16.sp,
-                      color: AppColors.primary,
-                    ),
-                    SizedBox(width: 6.w),
-                    Expanded(
-                      child: Text(
-                        event.location,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.caption,
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 14.h),
-
-                // BUTTON
-                SizedBox(
-                  width: double.infinity,
-                  height: 46.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context.push(AppRoutes.eventDetail);
-                    },
-                    style: AppTheme.lightTheme.elevatedButtonTheme.style,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('Book Tickets', style: AppTextStyles.button),
-                          SizedBox(width: 8.w),
-                          Icon(
-                            Icons.arrow_forward_rounded,
-                            color: AppColors.surface,
-                            size: 16.sp,
-                          ),
-                        ],
+                    child: Text(
+                      '\$${event.price.toStringAsFixed(2)}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.labelSmall.copyWith(
+                        color: AppColors.textDark,
                       ),
                     ),
                   ),
                 ),
               ],
+            ),
+          ),
+
+          // --------------------------------------------------
+          // DETAILS
+          // --------------------------------------------------
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(14.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // TITLE
+                  Text(
+                    event.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.h5.copyWith(
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
+                    ),
+                  ),
+
+                  SizedBox(height: 6.h),
+
+                  // DATE + TIME
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.access_time_rounded,
+                        size: 15.sp,
+                        color: AppColors.primary,
+                      ),
+
+                      SizedBox(width: 6.w),
+
+                      Expanded(
+                        child: Text(
+                          '${event.date} • ${event.time}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.caption,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 6.h),
+
+                  // LOCATION
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.near_me_outlined,
+                        size: 15.sp,
+                        color: AppColors.primary,
+                      ),
+
+                      SizedBox(width: 6.w),
+
+                      Expanded(
+                        child: Text(
+                          event.location,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.caption,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const Spacer(),
+
+                  // BUTTON
+                  SizedBox(
+                    width: double.infinity,
+                    height: 44.h,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.push(AppRoutes.eventDetail);
+                      },
+                      style: AppTheme.lightTheme.elevatedButtonTheme.style,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Book Tickets', style: AppTextStyles.button),
+                            SizedBox(width: 7.w),
+                            Icon(
+                              Icons.arrow_forward_rounded,
+                              color: AppColors.surface,
+                              size: 16.sp,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
