@@ -170,7 +170,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
 
   @override
   Future<List<SavedEventModel>> getSavedEvents() async {
-    // await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 600));
 
     return _events.where((event) => event.isSaved).toList();
   }

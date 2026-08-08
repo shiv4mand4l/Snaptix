@@ -21,7 +21,7 @@ class ConfirmationBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
     log('🔵 LoadConfirmation started');
     emit(ConfirmationLoading());
     // Simulate minor loading delay for realistic premium feel
-    // await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 600));
     emit(ConfirmationLoaded(BookingConfirmationModel.mock()));
   }
 

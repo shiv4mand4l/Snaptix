@@ -8,7 +8,7 @@ abstract class TicketLocalDataSource {
 class TicketLocalDataSourceImpl implements TicketLocalDataSource {
   @override
   Future<List<TicketModel>> getTickets() async {
-    // await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 600));
 
     return const [
       // Card 1

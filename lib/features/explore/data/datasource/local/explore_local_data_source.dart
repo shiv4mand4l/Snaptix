@@ -17,7 +17,7 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
   // Mock API Implementation
   @override
   Future<List<CategoryModel>> fetchCategories() async {
-    // await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 600));
     return const [
       CategoryModel(id: 0, title: 'All', iconName: 'flash_on'),
       CategoryModel(id: 1, title: 'Music', iconName: 'music_note'),
@@ -28,7 +28,7 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
 
   @override
   Future<List<EventModel>> fetchTrendingEvents() async {
-    // await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 600));
     return const [
       EventModel(
         id: 101,
@@ -90,7 +90,7 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
 
   @override
   Future<List<NearbyEventModel>> fetchNearbyEvents() async {
-    // await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 600));
     return const [
       NearbyEventModel(
         id: 201,

@@ -85,10 +85,11 @@ class ConfirmationScreen extends StatelessWidget {
                     children: [
                       // 1. Success Message Title Section
                       SuccessBadgeHeader(
-                        eventName: booking.eventName.replaceFirst(
-                          ' Festival 2024',
-                          '',
-                        ),
+                        eventName: booking.eventName,
+
+                        // replaceFirst(
+                        //   ' Festival 2024',
+                        //   '',
                         subtitle: booking.confirmationMessage,
                       ),
                       SizedBox(height: 28.h),

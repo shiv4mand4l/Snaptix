@@ -47,6 +47,7 @@ class SavedEventModel extends SavedEventEntity {
     };
   }
 
+  @override
   SavedEventModel copyWith({
     String? id,
     String? title,

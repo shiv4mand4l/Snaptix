@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,42 +41,54 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
           AppBarAction(icon: Icons.search_rounded, onTap: () {}),
         ],
       ),
+
       body: BlocBuilder<SavedEventsBloc, SavedEventsState>(
         builder: (context, state) {
           if (state is SavedEventsInitial || state is SavedEventsLoading) {
             return const AppLoader();
-          } else if (state is SavedEventsLoaded) {
+          }
+
+          if (state is SavedEventsLoaded) {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<SavedEventsBloc>().add(LoadSavedEvents());
               },
               color: AppColors.primary,
+
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
+
                 child: Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       maxWidth: isTablet ? 900.w : double.infinity,
                     ),
+
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 12.h,
                         horizontal: 3.w,
                       ),
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+
                         children: [
                           /// Header
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
+
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+
                               children: [
                                 Text(
                                   'Saved Events',
                                   style: AppTextStyles.ticketTitle,
                                 ),
+
                                 SizedBox(height: 6.h),
+
                                 Text(
                                   'Your curated list of upcoming experiences, events, and activities. Discover what’s next.',
                                   style: AppTextStyles.bodySmall.copyWith(
@@ -98,9 +108,10 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
 
                           SizedBox(height: 24.h),
 
-                          /// Event List
+                          /// Events
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.w),
+
                             child: _buildEventList(
                               state.filteredEvents,
                               isTablet,
@@ -120,7 +131,9 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
                                   ),
                                   size: 28.sp,
                                 ),
+
                                 SizedBox(height: 6.h),
+
                                 Text(
                                   'Viewing ${state.filteredEvents.length} of ${state.allEvents.length} saved events',
                                   style: AppTextStyles.caption,
@@ -135,37 +148,43 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
                 ),
               ),
             );
-          } else if (state is SavedEventsError) {
-            return AppLoader();
+          }
 
-            // Center(
-            //   child: Padding(
-            //     padding: EdgeInsets.all(24.r),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Icon(
-            //           Icons.error_outline,
-            //           color: AppColors.error,
-            //           size: 64.sp,
-            //         ),
-            //         SizedBox(height: 16.h),
-            //         Text(
-            //           state.message,
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(fontSize: 16.sp),
-            //         ),
-            //         SizedBox(height: 20.h),
-            //         ElevatedButton(
-            //           onPressed: () {
-            //             context.read<SavedEventsBloc>().add(LoadSavedEvents());
-            //           },
-            //           child: const Text('Try Again'),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // );
+          if (state is SavedEventsError) {
+            return Center(
+              child: Padding(
+                padding: EdgeInsets.all(24.r),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      color: AppColors.error,
+                      size: 64.sp,
+                    ),
+
+                    SizedBox(height: 16.h),
+
+                    Text(
+                      state.message,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16.sp),
+                    ),
+
+                    SizedBox(height: 20.h),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<SavedEventsBloc>().add(LoadSavedEvents());
+                      },
+                      child: const Text('Try Again'),
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
 
           return const SizedBox.shrink();
@@ -175,10 +194,12 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
   }
 
   Widget _buildEventList(List<SavedEventEntity> events, bool isTablet) {
+    /// Empty state
     if (events.isEmpty) {
       return Center(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 60.h),
+
           child: Column(
             children: [
               Icon(
@@ -186,7 +207,9 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
                 size: 60.sp,
                 color: AppColors.disabled,
               ),
+
               SizedBox(height: 12.h),
+
               Text(
                 'No saved events found in this category.',
                 style: AppTextStyles.bodySmall,
@@ -197,13 +220,19 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
       );
     }
 
-    /// Mobile Layout
+    /// ================================
+    /// MOBILE
+    /// ================================
     if (!isTablet) {
       return ListView.separated(
         physics: const NeverScrollableScrollPhysics(),
+
         shrinkWrap: true,
+
         itemCount: events.length,
+
         separatorBuilder: (_, _) => SizedBox(height: 20.h),
+
         itemBuilder: (context, index) {
           final event = events[index];
 
@@ -216,35 +245,53 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
       );
     }
 
-    /// Tablet Layout
-    final trendingEvents = events.where((e) => e.isTrending).toList();
-    final regularEvents = events.where((e) => !e.isTrending).toList();
+    /// ================================
+    /// TABLET
+    /// ================================
+
+    final trendingEvents = events.where((event) => event.isTrending).toList();
+
+    final regularEvents = events.where((event) => !event.isTrending).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+
       children: [
+        /// Trending Events
         if (trendingEvents.isNotEmpty) ...[
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
+
             shrinkWrap: true,
+
             itemCount: trendingEvents.length,
+
             separatorBuilder: (_, _) => SizedBox(height: 20.h),
-            itemBuilder: (context, index) =>
-                EventCardMain(event: trendingEvents[index]),
+
+            itemBuilder: (context, index) {
+              return EventCardMain(event: trendingEvents[index]);
+            },
           ),
+
           SizedBox(height: 20.h),
         ],
+
+        /// Regular Events
         if (regularEvents.isNotEmpty)
           GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
+
             shrinkWrap: true,
+
             itemCount: regularEvents.length,
+
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 20.w,
               mainAxisSpacing: 20.h,
               childAspectRatio: 0.84,
             ),
+
             itemBuilder: (context, index) {
               return EventCardCompact(savedEventEntities: regularEvents[index]);
             },

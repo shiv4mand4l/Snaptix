@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   textAlign: TextAlign.center,
                 ),
 
-                SizedBox(height: 8.h),
+                // SizedBox(height: 8.h),
 
                 /// Subtitle
                 Text(
@@ -90,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   textAlign: TextAlign.center,
                 ),
 
-                SizedBox(height: 40.h),
+                SizedBox(height: 60.h),
               ],
             ),
           ),

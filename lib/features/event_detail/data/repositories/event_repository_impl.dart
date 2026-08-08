@@ -16,14 +16,14 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   Future<bool> toggleFavorite(String eventId) async {
-    // await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 600));
 
     return true;
   }
 
   @override
   Future<bool> toggleFollowOrganizer(String organizerId) async {
-    // await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 600));
 
     return true;
   }

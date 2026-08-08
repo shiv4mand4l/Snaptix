@@ -11,7 +11,7 @@ abstract class EventLocalDataSource {
 class EventLocalDataSourceImpl implements EventLocalDataSource {
   @override
   Future<EventDetailModel> getEventDetail(String id) async {
-    // await Future.delayed(const Duration(milliseconds: 700));
+    await Future.delayed(const Duration(milliseconds: 600));
 
     return const EventDetailModel(
       id: '1',

@@ -101,7 +101,7 @@ class TicketCard extends StatelessWidget {
             // Actual premium network image for realism
             Positioned.fill(
               child: Image.asset(
-                'assets/images/Party Pop.jpg',
+                'assets/images/Indie Rock Concert.jpg',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   // Muted fallback showing glowing gradients

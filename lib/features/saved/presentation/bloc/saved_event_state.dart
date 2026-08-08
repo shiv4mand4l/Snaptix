@@ -8,9 +8,13 @@ abstract class SavedEventsState extends Equatable {
   List<Object?> get props => [];
 }
 
-class SavedEventsInitial extends SavedEventsState {}
+class SavedEventsInitial extends SavedEventsState {
+  const SavedEventsInitial();
+}
 
-class SavedEventsLoading extends SavedEventsState {}
+class SavedEventsLoading extends SavedEventsState {
+  const SavedEventsLoading();
+}
 
 class SavedEventsLoaded extends SavedEventsState {
   final List<SavedEventEntity> allEvents;

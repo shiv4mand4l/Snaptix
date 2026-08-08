@@ -27,6 +27,34 @@ class SavedEventEntity extends Equatable {
     required this.attendeesCount,
   });
 
+  SavedEventEntity copyWith({
+    String? id,
+    String? title,
+    String? category,
+    String? imageUrl,
+    String? dates,
+    String? time,
+    String? location,
+    double? price,
+    bool? isTrending,
+    bool? isSaved,
+    int? attendeesCount,
+  }) {
+    return SavedEventEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      category: category ?? this.category,
+      imageUrl: imageUrl ?? this.imageUrl,
+      dates: dates ?? this.dates,
+      time: time ?? this.time,
+      location: location ?? this.location,
+      price: price ?? this.price,
+      isTrending: isTrending ?? this.isTrending,
+      isSaved: isSaved ?? this.isSaved,
+      attendeesCount: attendeesCount ?? this.attendeesCount,
+    );
+  }
+
   @override
   List<Object?> get props => [
     id,

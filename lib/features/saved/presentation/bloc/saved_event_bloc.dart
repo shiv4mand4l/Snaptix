@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_task/features/saved/domain/usecases/get_saved_events_usecase.dart';
@@ -68,12 +67,36 @@ class SavedEventsBloc extends Bloc<SavedEventsEvent, SavedEventsState> {
     ToggleSaveEvent event,
     Emitter<SavedEventsState> emit,
   ) async {
-    try {
-      await toggleSavedEventUsecase(event.eventId);
-
-      // add(LoadSavedEvents());
-    } catch (e) {
-      emit(SavedEventsError(message: e.toString()));
+    if (state is! SavedEventsLoaded) {
+      return;
     }
+
+    final currentState = state as SavedEventsLoaded;
+
+    // 1. Update all events
+    final updatedAllEvents = currentState.allEvents.map((savedItem) {
+      if (savedItem.id == event.eventId) {
+        final updatedItem = savedItem.copyWith(isSaved: !savedItem.isSaved);
+
+        return updatedItem;
+      }
+
+      return savedItem;
+    }).toList();
+
+    // 2. Rebuild filtered events from updated allEvents
+    final updatedFilteredEvents = currentState.selectedCategory == 'All Events'
+        ? updatedAllEvents
+        : updatedAllEvents
+              .where((event) => event.category == currentState.selectedCategory)
+              .toList();
+
+    // 3. Emit both updated lists
+    emit(
+      currentState.copyWith(
+        allEvents: updatedAllEvents,
+        filteredEvents: updatedFilteredEvents,
+      ),
+    );
   }
 }

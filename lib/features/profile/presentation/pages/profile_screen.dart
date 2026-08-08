@@ -4,7 +4,6 @@ import 'package:flutter_task/core/routes/app_routes.dart';
 import 'package:flutter_task/shared/widgets/snaptix_app_bar_widget.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../explore/presentation/pages/widgets/app_bar_action.dart';
 import '../widgets/logout_button.dart';
 import '../widgets/profile_menu_options.dart';
 import '../widgets/profile_stats_card.dart';
@@ -28,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: SnaptixAppBarWidget(
         title: 'Profile',
 
-        actions: [AppBarAction(icon: Icons.search_rounded, onTap: () {})],
+        // actions: [AppBarAction(icon: Icons.search_rounded, onTap: () {})],
       ),
 
       body: LayoutBuilder(
