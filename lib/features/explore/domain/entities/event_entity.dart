@@ -11,6 +11,7 @@ class EventEntity extends Equatable {
   final String imageUrl;
   final bool isFavourite;
   final bool isTrending;
+  final int catagoryId;
 
   const EventEntity({
     required this.id,
@@ -23,6 +24,7 @@ class EventEntity extends Equatable {
     required this.imageUrl,
     this.isFavourite = false,
     this.isTrending = false,
+    required this.catagoryId,
   });
 
   EventEntity copyWith({bool? isFavourite}) {
@@ -37,6 +39,7 @@ class EventEntity extends Equatable {
       imageUrl: imageUrl,
       isFavourite: isFavourite ?? this.isFavourite,
       isTrending: isTrending,
+      catagoryId: catagoryId,
     );
   }
 
@@ -52,5 +55,6 @@ class EventEntity extends Equatable {
     imageUrl,
     isFavourite,
     isTrending,
+    catagoryId,
   ];
 }

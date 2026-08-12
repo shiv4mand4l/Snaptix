@@ -103,7 +103,7 @@ class _SavedEventsScreenState extends State<SavedEventsScreen> {
 
                           /// Filter Chips
                           FilterChipsRow(
-                            selectedCategory: state.selectedCategory,
+                            selectedCategoryId: state.selectedCategoryId,
                           ),
 
                           SizedBox(height: 24.h),

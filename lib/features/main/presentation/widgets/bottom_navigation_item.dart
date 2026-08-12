@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_task/features/main/presentation/bloc/navigation_bloc.dart';
 
 import '../../../../core/constants/app_colors.dart';
 
@@ -21,54 +23,64 @@ class BottomNavigationItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(16.r),
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Icon(
-                isSelected ? activeIcon : icon,
-                size: 22.sp,
-                color: isSelected ? AppColors.primary : AppColors.textSecondary,
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        context.read<NavigationBloc>().add(OnChangeNavigationIndex(index: 0));
+      },
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16.r),
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Icon(
+                  isSelected ? activeIcon : icon,
+                  size: 22.sp,
+                  color: isSelected
+                      ? AppColors.primary
+                      : AppColors.textSecondary,
+                ),
               ),
-            ),
 
-            SizedBox(height: 2.h),
+              SizedBox(height: 2.h),
 
-            Flexible(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 11.sp,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected
-                        ? AppColors.primary
-                        : AppColors.textSecondary,
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: isSelected
+                          ? FontWeight.w600
+                          : FontWeight.w500,
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.textSecondary,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            SizedBox(height: 3.h),
+              SizedBox(height: 3.h),
 
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              width: 4.r,
-              height: 4.r,
-              decoration: BoxDecoration(
-                color: isSelected ? AppColors.primary : Colors.transparent,
-                shape: BoxShape.circle,
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                width: 4.r,
+                height: 4.r,
+                decoration: BoxDecoration(
+                  color: isSelected ? AppColors.primary : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

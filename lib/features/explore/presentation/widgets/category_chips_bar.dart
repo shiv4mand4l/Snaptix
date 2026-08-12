@@ -1,25 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_task/core/constants/app_colors.dart';
 import 'package:flutter_task/features/explore/presentation/bloc/explore_bloc.dart';
 
-class CategoryChipsBar extends StatefulWidget {
-  const CategoryChipsBar({super.key});
-
-  @override
-  State<CategoryChipsBar> createState() => _CategoryChipsBarState();
-}
-
-class _CategoryChipsBarState extends State<CategoryChipsBar> {
-  // Keep track of selected category
-  int _selectedIndex = 0;
+class CategoryChipsBar extends StatelessWidget {
+  final int selectedCatagoryId;
+  CategoryChipsBar({super.key, required this.selectedCatagoryId});
 
   final List<Map<String, dynamic>> _categories = [
     {'id': 0, 'label': 'All', 'icon': Icons.flash_on_rounded},
     {'id': 1, 'label': 'Music', 'icon': Icons.music_note_rounded},
     {'id': 2, 'label': 'Tech', 'icon': Icons.terminal},
     {'id': 3, 'label': 'Sports', 'icon': Icons.sports},
+    {'id': 4, 'label': 'Arts', 'icon': Icons.share_sharp},
   ];
 
   @override
@@ -43,7 +39,7 @@ class _CategoryChipsBarState extends State<CategoryChipsBar> {
           final IconData categoryIcon = category['icon'] as IconData;
 
           // Check which chip is selected
-          final bool isSelected = _selectedIndex == index;
+          final bool isSelected = selectedCatagoryId == categoryId;
 
           return Material(
             color: Colors.transparent,
@@ -52,14 +48,9 @@ class _CategoryChipsBarState extends State<CategoryChipsBar> {
               borderRadius: BorderRadius.circular(24.r),
 
               onTap: () {
-                // Update selected UI
-                setState(() {
-                  _selectedIndex = index;
-                });
-
                 // Send category to Bloc
                 context.read<ExploreBloc>().add(
-                  SelectCategory(categoryId, categoryTitle),
+                  SelectCatagory(categoryId, categoryTitle),
                 );
               },
 
@@ -77,9 +68,7 @@ class _CategoryChipsBarState extends State<CategoryChipsBar> {
                   borderRadius: BorderRadius.circular(24.r),
 
                   border: Border.all(
-                    color: isSelected
-                        ? AppColors.primary
-                        : Colors.grey.shade300,
+                    color: isSelected ? AppColors.primary : AppColors.border,
                     width: 1.w,
                   ),
                 ),

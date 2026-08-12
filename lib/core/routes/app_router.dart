@@ -22,7 +22,7 @@ class AppRouter {
 
   static final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: AppRoutes.splash,
+    initialLocation: AppRoutes.main,
 
     routes: [
       GoRoute(
@@ -45,7 +45,6 @@ class AppRouter {
         name: '/signUp',
         builder: (context, state) => const SignUpScreen(),
       ),
-
       GoRoute(
         path: AppRoutes.main,
         name: '/mainNavigation',

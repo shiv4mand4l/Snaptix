@@ -13,6 +13,7 @@ class SavedEventModel extends SavedEventEntity {
     required super.isTrending,
     required super.isSaved,
     required super.attendeesCount,
+    required super.catagoryId,
   });
 
   factory SavedEventModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +29,7 @@ class SavedEventModel extends SavedEventEntity {
       isTrending: json['isTrending'],
       isSaved: json['isSaved'],
       attendeesCount: json['attendeesCount'],
+      catagoryId: json['catagoryId'],
     );
   }
 
@@ -44,6 +46,7 @@ class SavedEventModel extends SavedEventEntity {
       'isTrending': isTrending,
       'isSaved': isSaved,
       'attendeesCount': attendeesCount,
+      'catagoryId': catagoryId,
     };
   }
 
@@ -60,6 +63,7 @@ class SavedEventModel extends SavedEventEntity {
     bool? isTrending,
     bool? isSaved,
     int? attendeesCount,
+    int? catagoryId,
   }) {
     return SavedEventModel(
       id: id ?? this.id,
@@ -73,6 +77,7 @@ class SavedEventModel extends SavedEventEntity {
       isTrending: isTrending ?? this.isTrending,
       isSaved: isSaved ?? this.isSaved,
       attendeesCount: attendeesCount ?? this.attendeesCount,
+      catagoryId: catagoryId ?? this.catagoryId,
     );
   }
 }

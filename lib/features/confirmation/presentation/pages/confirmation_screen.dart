@@ -91,7 +91,7 @@ class ConfirmationScreen extends StatelessWidget {
                       : 32.w;
 
                   return SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
+                    // physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.only(
                       left: horizontalPadding,
                       right: horizontalPadding,

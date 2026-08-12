@@ -68,7 +68,7 @@ class ExploreScreen extends StatelessWidget {
                       child: ConstrainedBox(
                         constraints: BoxConstraints(maxWidth: maxWidth),
                         child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
+                          // physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.fromLTRB(
                             20.w,
                             12.h,
@@ -82,7 +82,9 @@ class ExploreScreen extends StatelessWidget {
 
                               SizedBox(height: 16.h),
 
-                              const CategoryChipsBar(),
+                              CategoryChipsBar(
+                                selectedCatagoryId: state.selectedCategoryId,
+                              ),
 
                               SizedBox(height: 24.h),
 

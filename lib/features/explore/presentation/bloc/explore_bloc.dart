@@ -26,7 +26,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
   }) : super(ExploreInitial()) {
     on<LoadExplore>(_onLoadExplore);
     on<RefreshExplore>(_onRefreshExplore);
-    on<SelectCategory>(_onSelectCategory);
+    on<SelectCatagory>(_onSelectCategory);
     // on<SearchEvent>(_onSearchEvent);
     // on<ToggleFavourite>(_onToggleFavourite);
   }
@@ -47,7 +47,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
           trendingEvents: trendingEvents,
           nearbyEvents: nearbyEvents,
           featuredBanner: featuredBanner,
-          selectedCategory: 'All',
+          allTrendingEvents: trendingEvents,
         ),
       );
     } catch (e) {
@@ -70,7 +70,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
           trendingEvents: trendingEvents,
           nearbyEvents: nearbyEvents,
           featuredBanner: featuredBanner,
-          selectedCategory: 'All',
+          allTrendingEvents: trendingEvents,
         ),
       );
     } catch (e) {
@@ -78,11 +78,26 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
     }
   }
 
-  void _onSelectCategory(SelectCategory event, Emitter<ExploreState> emit) {
-    if (state is ExploreLoaded) {
-      final currentState = state as ExploreLoaded;
-      emit(currentState.copyWith(selectedCategoryId: event.categoryId));
-    }
+  void _onSelectCategory(SelectCatagory event, Emitter<ExploreState> emit) {
+    // emit(IsLoadingExplore());
+    if (state is! ExploreLoaded) return;
+
+    final currentState = state as ExploreLoaded;
+
+    final filterdEvents = event.categoryId == 0
+        ? currentState.allTrendingEvents
+        : currentState.allTrendingEvents.where((eventItem) {
+            return eventItem.catagoryId == event.categoryId;
+          }).toList();
+
+    emit(
+      currentState.copyWith(
+        selectedCategoryIndex: event.categoryId,
+        selectedCategoryId: event.categoryId,
+        selectedCategoryTitle: event.categoryTitle,
+        trendingEvents: filterdEvents,
+      ),
+    );
   }
 
   // Future<void> _onSearchEvent(

@@ -47,7 +47,7 @@ class _TicketScreenState extends State<TicketScreen> {
           context.read<TicketsBloc>().add(OnLoadTickets());
         },
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          // physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

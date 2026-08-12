@@ -11,14 +11,14 @@ final class LoadExplore extends ExploreEvent {}
 
 final class RefreshExplore extends ExploreEvent {}
 
-final class SelectCategory extends ExploreEvent {
+final class SelectCatagory extends ExploreEvent {
   final int categoryId;
-  final String category;
+  final String categoryTitle;
 
-  const SelectCategory(this.categoryId, this.category);
+  const SelectCatagory(this.categoryId, this.categoryTitle);
 
   @override
-  List<Object> get props => [categoryId, category];
+  List<Object> get props => [categoryId, categoryTitle];
 }
 
 final class SearchEvent extends ExploreEvent {

@@ -13,6 +13,8 @@ class SavedEventEntity extends Equatable {
   final bool isSaved;
   final int attendeesCount;
 
+  final int catagoryId;
+
   const SavedEventEntity({
     required this.id,
     required this.title,
@@ -25,6 +27,7 @@ class SavedEventEntity extends Equatable {
     required this.isTrending,
     required this.isSaved,
     required this.attendeesCount,
+    required this.catagoryId,
   });
 
   SavedEventEntity copyWith({
@@ -52,6 +55,7 @@ class SavedEventEntity extends Equatable {
       isTrending: isTrending ?? this.isTrending,
       isSaved: isSaved ?? this.isSaved,
       attendeesCount: attendeesCount ?? this.attendeesCount,
+      catagoryId: catagoryId,
     );
   }
 
@@ -68,5 +72,6 @@ class SavedEventEntity extends Equatable {
     isTrending,
     isSaved,
     attendeesCount,
+    catagoryId,
   ];
 }

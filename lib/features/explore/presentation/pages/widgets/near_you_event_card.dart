@@ -168,12 +168,15 @@ class NearYouEventCard extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('Book Tickets', style: AppTextStyles.button),
+                            Text(
+                              'Book Tickets',
+                              style: AppTextStyles.eventTitle,
+                            ),
                             SizedBox(width: 7.w),
                             Icon(
                               Icons.arrow_forward_rounded,
                               color: AppColors.surface,
-                              size: 16.sp,
+                              size: 18.sp,
                             ),
                           ],
                         ),

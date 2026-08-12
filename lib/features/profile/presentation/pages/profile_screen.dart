@@ -33,8 +33,7 @@ class ProfileScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-
+            // physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(
               horizontal: isSmall
                   ? 16.w

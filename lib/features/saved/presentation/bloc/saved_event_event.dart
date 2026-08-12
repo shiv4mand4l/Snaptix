@@ -12,12 +12,13 @@ class LoadSavedEvents extends SavedEventsEvent {}
 
 /// Filter by category
 class FilterEvents extends SavedEventsEvent {
-  final String category;
+  final String categoryTitle;
+  final int categoryId;
 
-  const FilterEvents(this.category);
+  const FilterEvents(this.categoryTitle, this.categoryId);
 
   @override
-  List<Object?> get props => [category];
+  List<Object?> get props => [categoryTitle, categoryId];
 }
 
 /// Toggle bookmark

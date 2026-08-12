@@ -23,6 +23,7 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
       CategoryModel(id: 1, title: 'Music', iconName: 'music_note'),
       CategoryModel(id: 2, title: 'Tech', iconName: 'desktop_windows'),
       CategoryModel(id: 3, title: 'Sports', iconName: 'sports_basketball'),
+      // CategoryModel(id: 4, title: 'Arts', iconName: 'sports_basketball'),
     ];
   }
 
@@ -40,7 +41,9 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
         price: 49.00,
         imageUrl: 'assets/images/Neon Horizon Festival.jpg',
         isTrending: true,
+        catagoryId: 1,
       ),
+
       EventModel(
         id: 102,
         title: 'Cultural Event',
@@ -51,7 +54,9 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
         price: 56.00,
         imageUrl: 'assets/images/Cultural Event.jpg',
         isTrending: false,
+        catagoryId: 1,
       ),
+
       EventModel(
         id: 103,
         title: 'Cozy Modern Party',
@@ -62,18 +67,22 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
         price: 49.00,
         imageUrl: 'assets/images/Cozy Modern Party.jpg',
         isTrending: true,
+        catagoryId: 1,
       ),
+
       EventModel(
         id: 104,
         title: 'Late Night Event',
-        category: 'Concert & Musuc',
+        category: 'Concert & Music',
         date: 'APR 14, 2022',
         time: '01:00 AM',
-        location: 'The Janakur District, JNP',
+        location: 'The Janakpur District, JNP',
         price: 61.00,
         imageUrl: 'assets/images/Late Night Event.jpg',
         isTrending: true,
+        catagoryId: 1,
       ),
+
       EventModel(
         id: 105,
         title: 'Midnight Jazz Sessions',
@@ -84,6 +93,33 @@ class ExploreLocalDataSourceImpl implements ExploreLocalDataSource {
         price: 89.00,
         imageUrl: 'assets/images/Midnight Jazz Sessions.jpg',
         isTrending: false,
+        catagoryId: 1,
+      ),
+
+      EventModel(
+        id: 106,
+        title: 'Tech Conference',
+        category: 'Technology',
+        date: 'NOV 10, 2026',
+        time: '10:00 AM',
+        location: 'Kathmandu',
+        price: 30.00,
+        imageUrl: 'assets/images/Booklyn Food Expo.jpg',
+        isTrending: true,
+        catagoryId: 2,
+      ),
+
+      EventModel(
+        id: 107,
+        title: 'Football Championship',
+        category: 'Sports',
+        date: 'NOV 20, 2026',
+        time: '4:00 PM',
+        location: 'Kathmandu',
+        price: 20.00,
+        imageUrl: 'assets/images/City HackthonChampionship.jpg',
+        isTrending: true,
+        catagoryId: 3,
       ),
     ];
   }

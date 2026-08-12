@@ -13,6 +13,7 @@ class EventModel extends EventEntity {
     required super.imageUrl,
     super.isFavourite,
     super.isTrending,
+    required super.catagoryId,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -27,6 +28,7 @@ class EventModel extends EventEntity {
       imageUrl: json['image_url'] ?? '',
       isFavourite: json['is_favourite'] ?? false,
       isTrending: json['is_trending'] ?? false,
+      catagoryId: json['catagoryId'] as int,
     );
   }
 }

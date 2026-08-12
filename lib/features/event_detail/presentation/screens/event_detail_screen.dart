@@ -76,7 +76,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   LayoutBuilder(
                     builder: (context, constraints) {
                       return SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
+                        // physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
                             //-----------------------------------------------

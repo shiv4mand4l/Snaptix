@@ -40,25 +40,27 @@ class SavedEventsBloc extends Bloc<SavedEventsEvent, SavedEventsState> {
     }
   }
 
-  void _filterEvents(FilterEvents event, Emitter<SavedEventsState> emit) {
+  Future<void> _filterEvents(
+    FilterEvents event,
+    Emitter<SavedEventsState> emit,
+  ) async {
     if (state is! SavedEventsLoaded) return;
 
     final current = state as SavedEventsLoaded;
 
-    List filtered;
+    final updatedAllEvents = event.categoryId == 0
+        ? current.allEvents
+        : current.allEvents.where((eventItem) {
+            return eventItem.catagoryId == event.categoryId;
+          }).toList();
 
-    if (event.category == 'All Events') {
-      filtered = current.allEvents;
-    } else {
-      filtered = current.allEvents.where((e) {
-        return e.category == event.category;
-      }).toList();
-    }
-
+    // 3. Emit both updated lists
     emit(
       current.copyWith(
-        filteredEvents: filtered.cast(),
-        selectedCategory: event.category,
+        selectedCategoryIndex: event.categoryId,
+        filteredEvents: updatedAllEvents,
+        selectedCategoryId: event.categoryId,
+        selectedCategoryTitle: event.categoryTitle,
       ),
     );
   }

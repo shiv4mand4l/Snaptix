@@ -40,16 +40,24 @@ class AppBottomNavigation extends StatelessWidget {
                 final item = items[index];
 
                 return Expanded(
-                  child: BottomNavigationItemWidget(
-                    label: item.label,
-                    icon: item.icon,
-                    activeIcon: item.active,
-                    isSelected: state.currentIndex == index,
-                    onTap: () {
+                  child: PopScope(
+                    canPop: true,
+                    onPopInvokedWithResult: (didPop, result) {
                       context.read<NavigationBloc>().add(
-                        OnChangeNavigationIndex(index: index),
+                        OnChangeNavigationIndex(index: 0),
                       );
                     },
+                    child: BottomNavigationItemWidget(
+                      label: item.label,
+                      icon: item.icon,
+                      activeIcon: item.active,
+                      isSelected: state.currentIndex == index,
+                      onTap: () {
+                        context.read<NavigationBloc>().add(
+                          OnChangeNavigationIndex(index: index),
+                        );
+                      },
+                    ),
                   ),
                 );
               }),

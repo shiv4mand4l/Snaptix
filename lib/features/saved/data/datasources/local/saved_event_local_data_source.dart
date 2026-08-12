@@ -20,6 +20,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: true,
       isSaved: true,
       attendeesCount: 45,
+      catagoryId: 1,
     ),
     const SavedEventModel(
       id: '2',
@@ -33,6 +34,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 12,
+      catagoryId: 2,
     ),
     const SavedEventModel(
       id: '3',
@@ -46,6 +48,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 28,
+      catagoryId: 3,
     ),
     const SavedEventModel(
       id: '4',
@@ -59,6 +62,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 18,
+      catagoryId: 4,
     ),
     const SavedEventModel(
       id: '5',
@@ -72,6 +76,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: true,
       isSaved: true,
       attendeesCount: 94,
+      catagoryId: 5,
     ),
     const SavedEventModel(
       id: '6',
@@ -85,6 +90,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 15,
+      catagoryId: 1,
     ),
     const SavedEventModel(
       id: '7',
@@ -98,6 +104,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 22,
+      catagoryId: 2,
     ),
     const SavedEventModel(
       id: '8',
@@ -111,6 +118,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: true,
       isSaved: true,
       attendeesCount: 150,
+      catagoryId: 3,
     ),
     const SavedEventModel(
       id: '9',
@@ -124,6 +132,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 37,
+      catagoryId: 4,
     ),
     const SavedEventModel(
       id: '10',
@@ -137,6 +146,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: true,
       isSaved: true,
       attendeesCount: 88,
+      catagoryId: 5,
     ),
     const SavedEventModel(
       id: '11',
@@ -150,6 +160,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 64,
+      catagoryId: 1,
     ),
     const SavedEventModel(
       id: '12',
@@ -163,6 +174,7 @@ class SavedEventLocalDataSourceImpl implements SavedEventLocalDataSource {
       isTrending: false,
       isSaved: true,
       attendeesCount: 30,
+      catagoryId: 2,
     ),
 
     // Add the remaining events here...
