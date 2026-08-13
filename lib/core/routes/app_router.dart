@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task/features/auth/presentation/pages/signin/sign_in_screen.dart';
+import 'package:flutter_task/features/auth/presentation/pages/forgotpassword/forgot_password_screen.dart';
 import 'package:flutter_task/features/auth/presentation/pages/signup/sign_up_screen.dart';
 import 'package:flutter_task/features/event_detail/presentation/screens/event_detail_screen.dart';
 
@@ -12,6 +12,7 @@ import 'package:flutter_task/features/saved/presentation/pages/saved_events_scre
 import 'package:flutter_task/features/tickets/presentation/pages/ticket_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/pages/signin/sign_in_screen.dart';
 import '../../features/confirmation/presentation/pages/confirmation_screen.dart';
 import '../../features/splash/presentation/pages/splash_screen.dart';
 
@@ -22,7 +23,7 @@ class AppRouter {
 
   static final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: AppRoutes.main,
+    initialLocation: AppRoutes.splash,
 
     routes: [
       GoRoute(
@@ -38,7 +39,12 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.signIn,
         name: '/signIn',
-        builder: (context, state) => const SigInScreen(),
+        builder: (context, state) => const SignInScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.forgotPassword,
+        name: '/forgotPassword',
+        builder: (context, state) => const ForgotPasswordScreen(),
       ),
       GoRoute(
         path: AppRoutes.signUp,

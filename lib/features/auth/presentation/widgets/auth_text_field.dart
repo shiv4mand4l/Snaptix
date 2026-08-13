@@ -10,6 +10,8 @@ class AuthTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final VoidCallback? onSuffixTap;
+  final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
 
   const AuthTextField({
     super.key,
@@ -19,13 +21,18 @@ class AuthTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType,
     this.onSuffixTap,
+    required this.controller,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      validator: validator,
+
       decoration: InputDecoration(
         hintText: hintText,
 
@@ -50,12 +57,22 @@ class AuthTextField extends StatelessWidget {
 
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.r),
-          borderSide: BorderSide(color: AppColors.disabled),
+          borderSide: const BorderSide(color: AppColors.disabled),
         ),
 
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.r),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        ),
+
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: const BorderSide(color: Colors.red),
+        ),
+
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: const BorderSide(color: Colors.red, width: 1.5),
         ),
       ),
     );
